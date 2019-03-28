@@ -70,14 +70,14 @@
                     android:id="@+id/button2"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleButtonPrin"
+                    android:background="@drawable/stylebuttonprin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
                     android:id="@+id/button3"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleButtonPrin"
+                    android:background="@drawable/stylebuttonprin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
             </TableRow>
 
@@ -90,21 +90,21 @@
                     android:id="@+id/button11"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleButtonPrin"
+                    android:background="@drawable/stylebuttonprin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
                     android:id="@+id/button22"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleButtonPrin"
+                    android:background="@drawable/stylebuttonprin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
                     android:id="@+id/button33"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleButtonPrin"
+                    android:background="@drawable/stylebuttonprin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
             </TableRow>
 
@@ -118,14 +118,14 @@
                     android:id="@+id/button111"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleButtonPrin"
+                    android:background="@drawable/stylebuttonprin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
                     android:id="@+id/button222"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleButtonPrin"
+                    android:background="@drawable/stylebuttonprin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
@@ -208,7 +208,7 @@
                 android:id="@+id/imbReiniciar"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:background="@drawable/stylebuttonNext"
+                android:background="@drawable/stylebuttonnext"
                 android:text="🔃"
                 android:textAlignment="center"
                 android:textSize="15dp" />
