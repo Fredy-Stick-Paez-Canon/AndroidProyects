@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         boton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                giraImReloj();
+                girarImReloj();
 
               //  boton1.setImageResource(R.drawable.ic_star);
                 boton1.setBackgroundResource(R.mipmap.naranja);
