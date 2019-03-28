@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         boton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                giraImReloj();
+                girarImReloj();
 
                 //  boton1.setImageResource(R.drawable.ic_star);
                 boton2.setBackgroundResource(R.mipmap.fresa);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void giraImReloj(){
+    protected void girarImReloj(){
         ImageView imagenReloj = findViewById(R.id.reloj);
 
         RotateAnimation animation = new RotateAnimation(0, 360,
