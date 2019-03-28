@@ -12,7 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:textAlignment="textEnd"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
 
 
         <TextView
@@ -67,14 +70,14 @@
                     android:id="@+id/button2"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleb1"
+                    android:background="@drawable/styleButtonPrin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
                     android:id="@+id/button3"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleb1"
+                    android:background="@drawable/styleButtonPrin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
             </TableRow>
 
@@ -87,21 +90,21 @@
                     android:id="@+id/button11"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleb1"
+                    android:background="@drawable/styleButtonPrin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
                     android:id="@+id/button22"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleb1"
+                    android:background="@drawable/styleButtonPrin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
                     android:id="@+id/button33"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleb1"
+                    android:background="@drawable/styleButtonPrin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
             </TableRow>
 
@@ -115,14 +118,14 @@
                     android:id="@+id/button111"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleb1"
+                    android:background="@drawable/styleButtonPrin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
                     android:id="@+id/button222"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@drawable/styleb1"
+                    android:background="@drawable/styleButtonPrin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
                 <ImageButton
@@ -193,21 +196,23 @@
 
             <Button
                 android:id="@+id/imbSalir"
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:background="@drawable/styleb1"
-                android:text="↩"
+                android:background="@drawable/stylebuttonback"
+                android:text="🔙"
                 android:textAlignment="center"
-                android:textSize="40dp" />
+                android:textColor="#f00000"
+                android:textSize="15dp"/>
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="90dp"
+            <Button
+                android:id="@+id/imbReiniciar"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:background="@drawable/styleb1"
-                android:text="Reiniciar[🔃]"
+                android:background="@drawable/stylebuttonNext"
+                android:text="🔃"
                 android:textAlignment="center"
-                android:textSize="40dp" />/>
+                android:textSize="15dp" />
+
 
         </TableRow>
 
