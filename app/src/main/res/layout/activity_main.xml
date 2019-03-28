@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:textAlignment="textEnd"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -62,7 +61,8 @@
                     android:id="@+id/button1"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@mipmap/naranja"
+                    android:background="@drawable/stylebuttonprin"
+
                     app:srcCompat="@android:drawable/ic_menu_help" />
 
 
@@ -132,7 +132,7 @@
                     android:id="@+id/button333"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
-                    android:background="@mipmap/fresa"
+                    android:background="@drawable/stylebuttonprin"
                     app:srcCompat="@android:drawable/ic_menu_help" />
             </TableRow>
 
