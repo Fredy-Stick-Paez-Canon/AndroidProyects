@@ -17,51 +17,119 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    int btnc = 0, band=0;
+    ImageButton boton1 = findViewById(R.id.button1);
+    ImageButton boton2 = findViewById(R.id.button2);
+    ImageButton boton3 = findViewById(R.id.button3);
+    ImageButton boton11 = findViewById(R.id.button11);
+    ImageButton boton22 = findViewById(R.id.button22);
+    ImageButton boton33 = findViewById(R.id.button33);
+    ImageButton boton111 = findViewById(R.id.button111);
+    ImageButton boton222 = findViewById(R.id.button222);
+    ImageButton boton333 = findViewById(R.id.button333);
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton boton1 = findViewById(R.id.button1);
+
 
         boton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-              //  boton1.setImageResource(R.drawable.ic_equis);
-
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Toast por defecto", Toast.LENGTH_SHORT);
-
-                toast1.show();
+                band = 1;
 
                 giraImReloj();
+                cambio_ic(boton1);
             }
         });
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        boton2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                band = 0;
+
+                giraImReloj();
+                cambio_ic(boton2);
+            }
+        });
+
+        boton3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                band = 1;
+
+                giraImReloj();
+                cambio_ic(boton3);
+            }
+        });
+
+        boton11.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                band = 0;
+
+                giraImReloj();
+                cambio_ic(boton11);
+            }
+        });
+
+
+        boton22.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                band = 1;
+
+                giraImReloj();
+                cambio_ic(boton22);
+            }
+        });
+
+        boton33.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                band = 0;
+
+                giraImReloj();
+                cambio_ic(boton33);
+            }
+        });
+
+        boton111.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                band = 1;
+
+                giraImReloj();
+                cambio_ic(boton111);
+            }
+        });
+
+        boton222.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                band = 0;
+
+                giraImReloj();
+                cambio_ic(boton222);
+            }
+        });
+
+        boton333.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                band = 1;
+
+                giraImReloj();
+                cambio_ic(boton333);
+            }
+        });
+
+
     }
 
     protected void giraImReloj(){
@@ -75,6 +143,21 @@ public class MainActivity extends AppCompatActivity {
         animation.setRepeatCount(Animation.INFINITE);
         animation.setRepeatMode(Animation.INFINITE);
         imagenReloj.startAnimation(animation);
+    }
+
+
+    protected void cambio_ic(ImageButton btn){
+        if(band==1){
+
+            btn.setImageResource(R.drawable.ic_star);
+
+
+        }else{
+
+            btn.setImageResource(R.drawable.ic_bola);
+          //  btn.setImageResource(R.mipmap.naranja);
+        }
+
     }
 
 }
