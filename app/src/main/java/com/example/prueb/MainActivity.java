@@ -4,22 +4,26 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.KeyEventDispatcher;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView mTextMessage;
 
-    int btnc = 0, band=0;
+    int btnc = 1,fruit1=0,fruit2=0,fruit3=0,fruit11=0,fruit22=0,fruit33=0,fruit111=0,fruit222=0,fruit333=0;
 
+    ImageButton boton1,boton2,boton3,boton11,boton22,boton33,boton111,boton222,boton333;
+    Button reini;
 
 
 
@@ -28,51 +32,191 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ImageButton boton1 = findViewById(R.id.button1);
-        final ImageButton boton2 = findViewById(R.id.button2);
-        ImageButton boton3 = findViewById(R.id.button3);
-        ImageButton boton11 = findViewById(R.id.button11);
-        ImageButton boton22 = findViewById(R.id.button22);
-        ImageButton boton33 = findViewById(R.id.button33);
-        ImageButton boton111 = findViewById(R.id.button111);
-        ImageButton boton222 = findViewById(R.id.button222);
-        ImageButton boton333 = findViewById(R.id.button333);
-/*
-        boton1.setOnClickListener(new View.OnClickListener() {
+        boton1 = findViewById(R.id.button1);
+        boton2 = findViewById(R.id.button2);
+        boton3 = findViewById(R.id.button3);
+        boton11 = findViewById(R.id.button11);
+        boton22 = findViewById(R.id.button22);
+        boton33 = findViewById(R.id.button33);
+        boton111 = findViewById(R.id.button111);
+        boton222 = findViewById(R.id.button222);
+        boton333 = findViewById(R.id.button333);
+        reini = findViewById(R.id.imbReiniciar);
+
+        reini.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                band = 1;
+                BotonesNook();
 
-                giraImReloj();
-                cambio_ic(boton1);
             }
         });
 
-*/
-        boton1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        boton1.setOnClickListener(this);
+        boton2.setOnClickListener(this);
+        boton3.setOnClickListener(this);
+        boton11.setOnClickListener(this);
+        boton22.setOnClickListener(this);
+        boton33.setOnClickListener(this);
+        boton111.setOnClickListener(this);
+        boton222.setOnClickListener(this);
+        boton333.setOnClickListener(this);
 
-                girarImReloj();
-
-              //  boton1.setImageResource(R.drawable.ic_star);
-                boton1.setBackgroundResource(R.mipmap.naranja);
-            }
-        });
 
 
-        boton2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                girarImReloj();
-
-                //  boton1.setImageResource(R.drawable.ic_star);
-                boton2.setBackgroundResource(R.mipmap.fresa);
-            }
-        });
 
 
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                btnc = btnc +1;
+                cambio_ic(boton1,btnc);
+                break;
+
+            case R.id.button2:
+                btnc = btnc +1;
+                cambio_ic(boton2,btnc);
+                break;
+
+            case R.id.button3:
+                btnc = btnc +1;
+                cambio_ic(boton3,btnc);
+                break;
+
+            case R.id.button11:
+                btnc = btnc +1;
+                cambio_ic(boton11,btnc);
+                break;
+
+            case R.id.button22:
+                btnc = btnc +1;
+                cambio_ic(boton22,btnc);
+                break;
+
+            case R.id.button33:
+                btnc = btnc +1;
+                cambio_ic(boton33,btnc);
+                break;
+
+            case R.id.button111:
+                btnc = btnc +1;
+                cambio_ic(boton111,btnc);
+                break;
+
+            case R.id.button222:
+                btnc = btnc +1;
+                cambio_ic(boton222,btnc);
+                break;
+
+            case R.id.button333:
+                btnc = btnc +1;
+                cambio_ic(boton333,btnc);
+                break;
+        }
+    }
+
+
+    protected void cambio_ic(ImageButton btn, int btncc){
+
+
+        girarImReloj();
+
+        if(btncc%2!=0){
+
+            btn.setBackgroundResource(R.mipmap.fresa);
+            if(btn == boton1){
+                fruit1 =1;
+                boton1.setEnabled(false);
+            }
+            if(btn == boton2){
+                fruit2 =1;
+                boton2.setEnabled(false);
+            }
+            if(btn == boton3){
+                fruit3 =1;
+                boton3.setEnabled(false);
+            }
+
+            if(btn == boton11){
+                fruit11 =1;
+                boton11.setEnabled(false);
+            }
+            if(btn == boton22){
+                fruit22 =1;
+                boton22.setEnabled(false);
+            }
+            if(btn == boton33){
+                fruit33 =1;
+                boton33.setEnabled(false);
+            }
+
+            if(btn == boton111){
+                fruit111 =1;
+                boton111.setEnabled(false);
+            }
+            if(btn == boton222){
+                fruit222 =1;
+                boton222.setEnabled(false);
+            }
+            if(btn == boton333){
+                fruit333 =1;
+                boton333.setEnabled(false);
+            }
+
+        }else{
+
+            btn.setBackgroundResource(R.mipmap.naranja);
+            if(btn == boton1){
+                fruit1 =2;
+                boton1.setEnabled(false);
+            }
+            if(btn == boton2){
+                fruit2 =2;
+                boton2.setEnabled(false);
+            }
+            if(btn == boton3){
+                fruit3 =2;
+                boton3.setEnabled(false);
+            }
+
+            if(btn == boton11){
+                fruit11 =2;
+                boton11.setEnabled(false);
+            }
+            if(btn == boton22){
+                fruit22 =2;
+                boton22.setEnabled(false);
+            }
+            if(btn == boton33){
+                fruit33 =2;
+                boton33.setEnabled(false);
+            }
+
+            if(btn == boton111){
+                fruit111 =2;
+                boton111.setEnabled(false);
+            }
+            if(btn == boton222){
+                fruit222 =2;
+                boton222.setEnabled(false);
+            }
+            if(btn == boton333){
+                fruit333 =2;
+                boton333.setEnabled(false);
+            }
+        }
+
+
+        Reglas();
+
+
+
+
+    }
+
 
     protected void girarImReloj(){
         ImageView imagenReloj = findViewById(R.id.reloj);
@@ -88,20 +232,212 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /*
-    protected void cambio_ic(ImageButton btn){
-        if(band==1){
+    protected void Reglas(){
+        if( fruit1 ==1 && fruit2==1 && fruit3==1 ){
 
-            btn.setImageResource(R.drawable.ic_star);
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "fresa ", Toast.LENGTH_SHORT);
 
+            toast1.show();
 
-
-        }else{
-
-            btn.setImageResource(R.drawable.ic_bola);
-          //  btn.setImageResource(R.mipmap.naranja);
+            BotonesNook();
         }
 
+        if( fruit11 ==1 && fruit22==1 && fruit33==1 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "fresa ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+
+        if( fruit111 ==1 && fruit222==1 && fruit333==1 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "fresa ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+
+
+        if( fruit1 ==1 && fruit11==1 && fruit111==1 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "fresa ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+        if( fruit2 ==1 && fruit22==1 && fruit222==1 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "fresa ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+        if( fruit3 ==1 && fruit33==1 && fruit333==1 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "fresa ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+        ///// diagonales
+
+        if( fruit1 ==1 && fruit22==1 && fruit333==1 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "fresa ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+
+        if( fruit111 ==1 && fruit22==1 && fruit3==1 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "fresa ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+
+        ///naranja-----------------------
+
+
+        if( fruit1 ==2 && fruit2==2 && fruit3==2 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "naranja ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+        if( fruit11 ==2 && fruit22==2 && fruit33==2 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "naranja ", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+
+        if( fruit111 ==2 && fruit222==2 && fruit333==2 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "naranja", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+
+
+        if( fruit1 ==2 && fruit11==2 && fruit111==2 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "naranja", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+        if( fruit2 ==2 && fruit22==2 && fruit222==2 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "naranja", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+        if( fruit3 ==2 && fruit33==2 && fruit333==2 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "naranja", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+        /////
+
+        if( fruit1 ==2 && fruit22==2 && fruit333==2 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "naranja", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
+
+
+        if( fruit111 ==2 && fruit22==2 && fruit3==2 ){
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "naranja", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            BotonesNook();
+        }
     }
-*/
+
+
+    protected void BotonesNook(){
+
+        boton1.setEnabled(false);
+        boton2.setEnabled(false);
+        boton3.setEnabled(false);
+        boton11.setEnabled(false);
+        boton22.setEnabled(false);
+        boton33.setEnabled(false);
+        boton111.setEnabled(false);
+        boton222.setEnabled(false);
+        boton333.setEnabled(false);
+    }
+
+
+    protected void Botonesok(){
+
+        boton1.setEnabled(true);
+        boton2.setEnabled(true);
+        boton3.setEnabled(true);
+        boton11.setEnabled(true);
+        boton22.setEnabled(true);
+        boton33.setEnabled(true);
+        boton111.setEnabled(true);
+        boton222.setEnabled(true);
+        boton333.setEnabled(true);
+    }
+
+
 }
