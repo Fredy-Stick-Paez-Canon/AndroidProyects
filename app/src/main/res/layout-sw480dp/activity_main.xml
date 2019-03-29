@@ -13,8 +13,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="90dp">
 
 
         <TextView
@@ -30,10 +30,10 @@
             tools:layout_editor_absoluteY="28dp" />
 
         <TextView
-            android:id="@+id/txvWinner"
+            android:id="@+id/txvTimer"
             android:layout_width="225dp"
             android:layout_height="33dp"
-            android:text="TextView"
+            android:text="10:00:00"
             android:textAlignment="center"
             android:textColor="#35ea63"
             android:textSize="28sp"
@@ -185,24 +185,23 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/imbSalir"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:background="@drawable/stylebuttonback"
-                android:text="🔙"
-                android:textAlignment="center"
-                android:textColor="#f00000"
-                android:textSize="15dp"/>
-
-            <Button
-                android:id="@+id/imbReiniciar"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="35dp"
                 android:background="@drawable/stylebuttonnext"
-                android:text="🔃"
                 android:textAlignment="center"
-                android:textSize="15dp" />
+                android:src="@android:drawable/ic_menu_revert"
+                android:layout_margin="30dp"/>
+
+            <ImageButton
+                android:id="@+id/imbReiniciar"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:background="@drawable/stylebuttonnext"
+                android:textAlignment="center"
+                android:src="@android:drawable/ic_popup_sync"
+                android:layout_margin="30dp"/>
 
 
         </TableRow>

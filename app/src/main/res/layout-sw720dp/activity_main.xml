@@ -30,10 +30,10 @@
             tools:layout_editor_absoluteY="28dp" />
 
         <TextView
-            android:id="@+id/txvWinner"
+            android:id="@+id/txvTimer"
             android:layout_width="225dp"
             android:layout_height="33dp"
-            android:text="TextView"
+            android:text="10:00:00"
             android:textAlignment="center"
             android:textColor="#35ea63"
             android:textSize="28sp"
@@ -184,28 +184,27 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/imbSalir"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
-                android:background="@drawable/stylebuttonback"
-                android:text="🔙"
-                android:textAlignment="center"
-                android:textColor="#f00000"
-                android:textSize="45dp" />
+                android:background="@drawable/stylebuttonnext"
 
-            <Button
+                android:src="@android:drawable/ic_menu_revert"
+                android:textAlignment="center" />
+
+            <ImageButton
                 android:id="@+id/imbReiniciar"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
                 android:background="@drawable/stylebuttonnext"
-                android:back="@color/colorPrimary"
-                android:text="🔃"
-                android:textAlignment="center"
-                android:textSize="45dp" />
+
+                android:src="@android:drawable/ic_popup_sync"
+                android:textAlignment="center" />
 
 
         </TableRow>
