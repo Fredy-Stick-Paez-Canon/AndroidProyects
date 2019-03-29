@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boton111 = findViewById(R.id.button111);
         boton222 = findViewById(R.id.button222);
         boton333 = findViewById(R.id.button333);
-        //reini = findViewById(R.id.imbReiniciar);
+        reini = findViewById(R.id.imbReiniciar);
         //back = findViewById(R.id.imbReiniciar);
         contadorSeg = findViewById(R.id.txvTimer);
 
