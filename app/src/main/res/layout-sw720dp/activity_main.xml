@@ -197,10 +197,12 @@
 
             <Button
                 android:id="@+id/imbReiniciar"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
                 android:background="@drawable/stylebuttonnext"
+                android:back="@color/colorPrimary"
                 android:text="🔃"
                 android:textAlignment="center"
                 android:textSize="45dp" />

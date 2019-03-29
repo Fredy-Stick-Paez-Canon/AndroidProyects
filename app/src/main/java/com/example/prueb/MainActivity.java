@@ -46,10 +46,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reini.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                BotonesNook();
+                Botonesok();
 
             }
         });
+
+      //  reini.setBackgroundColor(0xFF00FF00);
 
         boton1.setOnClickListener(this);
         boton2.setOnClickListener(this);
@@ -387,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             BotonesNook();
         }
 
-        /////
+        ///// diagonales
 
         if( fruit1 ==2 && fruit22==2 && fruit333==2 ){
 
@@ -437,6 +439,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boton111.setEnabled(true);
         boton222.setEnabled(true);
         boton333.setEnabled(true);
+
+        boton1.setBackgroundResource(0);
+        boton2.setBackgroundResource(0);
+        boton3.setBackgroundResource(0);
+        boton11.setBackgroundResource(0);
+        boton22.setBackgroundResource(0);
+        boton33.setBackgroundResource(0);
+        boton111.setBackgroundResource(0);
+        boton222.setBackgroundResource(0);
+        boton333.setBackgroundResource(0);
+
+        boton1.setBackgroundResource(R.drawable.stylebuttonprin);
+        boton2.setBackgroundResource(R.drawable.stylebuttonprin);
+        boton3.setBackgroundResource(R.drawable.stylebuttonprin);
+        boton11.setBackgroundResource(R.drawable.stylebuttonprin);
+        boton22.setBackgroundResource(R.drawable.stylebuttonprin);
+        boton33.setBackgroundResource(R.drawable.stylebuttonprin);
+        boton111.setBackgroundResource(R.drawable.stylebuttonprin);
+        boton222.setBackgroundResource(R.drawable.stylebuttonprin);
+        boton333.setBackgroundResource(R.drawable.stylebuttonprin);
+
+
+        btnc = 1;
+        fruit1=0;
+        fruit2=0;
+        fruit3=0;
+        fruit11=0;
+        fruit22=0;
+        fruit33=0;
+        fruit111=0;
+        fruit222=0;
+        fruit333=0;
+
     }
 
 
