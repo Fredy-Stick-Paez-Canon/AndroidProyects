@@ -1,6 +1,7 @@
 package com.example.prueb;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
@@ -18,14 +19,12 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView mTextMessage;
+    private TextView mTextMessage, contadorSeg;
 
     int btnc = 1,fruit1=0,fruit2=0,fruit3=0,fruit11=0,fruit22=0,fruit33=0,fruit111=0,fruit222=0,fruit333=0;
 
     ImageButton boton1,boton2,boton3,boton11,boton22,boton33,boton111,boton222,boton333;
-    Button reini;
-
-
+    ImageButton reini, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +40,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boton111 = findViewById(R.id.button111);
         boton222 = findViewById(R.id.button222);
         boton333 = findViewById(R.id.button333);
-        reini = findViewById(R.id.imbReiniciar);
+        //reini = findViewById(R.id.imbReiniciar);
+        //back = findViewById(R.id.imbReiniciar);
+        contadorSeg = findViewById(R.id.txvTimer);
 
         reini.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Botonesok();
+                habilitarJuego();
 
             }
         });
-
-      //  reini.setBackgroundColor(0xFF00FF00);
 
         boton1.setOnClickListener(this);
         boton2.setOnClickListener(this);
@@ -62,12 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boton111.setOnClickListener(this);
         boton222.setOnClickListener(this);
         boton333.setOnClickListener(this);
-
-
-
-
-
-
     }
 
     @Override
@@ -119,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 
     protected void cambio_ic(ImageButton btn, int btncc){
 
@@ -211,16 +203,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-
-        Reglas();
-
-
-
-
+        validarReglas();
     }
 
-
     protected void girarImReloj(){
+
+        new CountDownTimer(10, 1) {
+            int segundos = 0;
+            public void onTick(long millisUntilFinished) {
+                contadorSeg.setText(segundos);
+                segundos++;
+            }
+
+            public void onFinish() {
+
+            }
+        }.start();
+
         ImageView imagenReloj = findViewById(R.id.reloj);
 
         RotateAnimation animation = new RotateAnimation(0, 360,
@@ -233,188 +232,188 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imagenReloj.startAnimation(animation);
     }
 
+    protected void validarReglas(){
 
-    protected void Reglas(){
         if( fruit1 ==1 && fruit2==1 && fruit3==1 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "fresa ", Toast.LENGTH_SHORT);
+                            "Fresa ", Toast.LENGTH_SHORT);
 
             toast1.show();
-
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-        if( fruit11 ==1 && fruit22==1 && fruit33==1 ){
+        else if( fruit11 ==1 && fruit22==1 && fruit33==1 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "fresa ", Toast.LENGTH_SHORT);
+                            "Fresa ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-
-        if( fruit111 ==1 && fruit222==1 && fruit333==1 ){
+        else if( fruit111 ==1 && fruit222==1 && fruit333==1 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "fresa ", Toast.LENGTH_SHORT);
+                            "Fresa ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-
-
-        if( fruit1 ==1 && fruit11==1 && fruit111==1 ){
+        else if( fruit1 ==1 && fruit11==1 && fruit111==1 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "fresa ", Toast.LENGTH_SHORT);
+                            "Fresa ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-        if( fruit2 ==1 && fruit22==1 && fruit222==1 ){
+        else if( fruit2 ==1 && fruit22==1 && fruit222==1 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "fresa ", Toast.LENGTH_SHORT);
+                            "Fresa ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-        if( fruit3 ==1 && fruit33==1 && fruit333==1 ){
+        else if( fruit3 ==1 && fruit33==1 && fruit333==1 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "fresa ", Toast.LENGTH_SHORT);
+                            "Fresa ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
         ///// diagonales
 
-        if( fruit1 ==1 && fruit22==1 && fruit333==1 ){
+        else if( fruit1 ==1 && fruit22==1 && fruit333==1 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "fresa ", Toast.LENGTH_SHORT);
+                            "Fresa ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
 
-        if( fruit111 ==1 && fruit22==1 && fruit3==1 ){
+        else if( fruit111 ==1 && fruit22==1 && fruit3==1 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "fresa ", Toast.LENGTH_SHORT);
+                            "Fresa ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
+        ///Naranja-----------------------
 
-        ///naranja-----------------------
 
-
-        if( fruit1 ==2 && fruit2==2 && fruit3==2 ){
+        else if( fruit1 ==2 && fruit2==2 && fruit3==2 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "naranja ", Toast.LENGTH_SHORT);
+                            "Naranja ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-        if( fruit11 ==2 && fruit22==2 && fruit33==2 ){
+        else if( fruit11 ==2 && fruit22==2 && fruit33==2 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "naranja ", Toast.LENGTH_SHORT);
+                            "Naranja ", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-
-        if( fruit111 ==2 && fruit222==2 && fruit333==2 ){
+        else if( fruit111 ==2 && fruit222==2 && fruit333==2 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "naranja", Toast.LENGTH_SHORT);
+                            "Naranja", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-
-
-        if( fruit1 ==2 && fruit11==2 && fruit111==2 ){
+        else if( fruit1 ==2 && fruit11==2 && fruit111==2 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "naranja", Toast.LENGTH_SHORT);
+                            "Naranja", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-        if( fruit2 ==2 && fruit22==2 && fruit222==2 ){
+        else if( fruit2 ==2 && fruit22==2 && fruit222==2 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "naranja", Toast.LENGTH_SHORT);
+                            "Naranja", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
-        if( fruit3 ==2 && fruit33==2 && fruit333==2 ){
+        else if( fruit3 ==2 && fruit33==2 && fruit333==2 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "naranja", Toast.LENGTH_SHORT);
+                            "Naranja", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
         ///// diagonales
 
-        if( fruit1 ==2 && fruit22==2 && fruit333==2 ){
+        else if( fruit1 ==2 && fruit22==2 && fruit333==2 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "naranja", Toast.LENGTH_SHORT);
+                            "Naranja", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
         }
 
 
-        if( fruit111 ==2 && fruit22==2 && fruit3==2 ){
+        else if( fruit111 ==2 && fruit22==2 && fruit3==2 ){
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "naranja", Toast.LENGTH_SHORT);
+                            "Naranja", Toast.LENGTH_SHORT);
 
             toast1.show();
-            BotonesNook();
+            inhabilitarBotones();
+        }
+        else{
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "Empate", Toast.LENGTH_SHORT);
+
+            toast1.show();
+            inhabilitarBotones();
         }
     }
 
 
-    protected void BotonesNook(){
+    protected void inhabilitarBotones(){
 
         boton1.setEnabled(false);
         boton2.setEnabled(false);
@@ -428,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    protected void Botonesok(){
+    protected void habilitarJuego(){
 
         boton1.setEnabled(true);
         boton2.setEnabled(true);
@@ -471,7 +470,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fruit111=0;
         fruit222=0;
         fruit333=0;
-
     }
 
 
