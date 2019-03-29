@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.Interpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -206,19 +207,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         validarReglas();
     }
 
-    protected void girarImReloj(){
-
-        new CountDownTimer(10, 1) {
-            int segundos = 0;
-            public void onTick(long millisUntilFinished) {
-                contadorSeg.setText(segundos);
-                segundos++;
-            }
-
-            public void onFinish() {
-
-            }
-        }.start();
+    protected void girarImReloj() throws InterruptedException {
+        Thread.sleep(1000);
+        int segundos = 6;
+        contadorSeg.setText(segundos);
+        segundos--;
 
         ImageView imagenReloj = findViewById(R.id.reloj);
 
