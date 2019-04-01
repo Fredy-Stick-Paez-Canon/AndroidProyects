@@ -32,7 +32,6 @@
             android:id="@+id/txvTimer"
             android:layout_width="225dp"
             android:layout_height="33dp"
-            android:text="10:00:00"
             android:textAlignment="center"
             android:textColor="#35ea63"
             android:textSize="28sp"
@@ -169,7 +168,7 @@
                     android:id="@+id/conta2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2"
+                    android:text="0"
                     android:textAlignment="center"
                     android:textSize="30sp" />
 

@@ -20,10 +20,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView mTextMessage, contadorSeg, conPlkayer1, conPlkayer2;
+    private TextView mTextMessage, contadorSeg, conPlayer1, conPlayer2;
 
     int btnc = 1,fruit1=0,fruit2=0,fruit3=0,fruit11=0,fruit22=0,fruit33=0,fruit111=0,fruit222=0,
-            fruit333=0,band=0, conWinFresa, conWinNaranja;
+            fruit333=0,band=0, conWinFresa = 0, conWinNaranja = 0;
 
     ImageButton boton1,boton2,boton3,boton11,boton22,boton33,boton111,boton222,boton333;
     ImageButton reini, back;
@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reini = findViewById(R.id.imbReiniciar);
         //back = findViewById(R.id.imbReiniciar);
         contadorSeg = findViewById(R.id.txvTimer);
-        conPlkayer1 = findViewById(R.id.conta1);
-        conPlkayer2 = findViewById(R.id.conta2);
+        conPlayer1 = findViewById(R.id.conta1);
+        conPlayer2 = findViewById(R.id.conta2);
 
         reini.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -212,12 +212,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         validarReglas();
     }
 
-    protected void girarImReloj() throws InterruptedException {
-        Thread.sleep(1000);
-        int segundos = 6;
-        contadorSeg.setText(segundos);
-        segundos--;
+    protected void girarImReloj() {
 
+        MiContador oMicontador = new MiContador(5,5);
+        oMicontador.start();
         ImageView imagenReloj = findViewById(R.id.reloj);
 
         RotateAnimation animation = new RotateAnimation(0, 360,
@@ -231,8 +229,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void validarReglas(){
-
-        if( fruit1 ==1 && fruit2==1 && fruit3==1 ){
+    try {
+        if (fruit1 == 1 && fruit2 == 1 && fruit3 == 1) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -241,9 +239,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
-        if( fruit11 ==1 && fruit22==1 && fruit33==1 ){
+        if (fruit11 == 1 && fruit22 == 1 && fruit33 == 1) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -252,9 +250,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
-        if( fruit111 ==1 && fruit222==1 && fruit333==1 ){
+        if (fruit111 == 1 && fruit222 == 1 && fruit333 == 1) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -263,9 +261,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
-        if( fruit1 ==1 && fruit11==1 && fruit111==1 ){
+        if (fruit1 == 1 && fruit11 == 1 && fruit111 == 1) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -274,22 +272,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
-        }
-
-        if( fruit2 ==1 && fruit22==1 && fruit222==1 ){
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
-        if( fruit3 ==1 && fruit33==1 && fruit333==1 ){
+        if (fruit2 == 1 && fruit22 == 1 && fruit222 == 1) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -298,12 +284,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
+        }
+
+        if (fruit3 == 1 && fruit33 == 1 && fruit333 == 1) {
+
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "Fresa ", Toast.LENGTH_SHORT);
+            conWinFresa++;
+
+            toast1.show();
+            inhabilitarBotones();
+            band = 1;
         }
 
         ///// diagonales
 
-        if( fruit1 ==1 && fruit22==1 && fruit333==1 ){
+        if (fruit1 == 1 && fruit22 == 1 && fruit333 == 1) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -312,11 +310,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
 
-        if( fruit111 ==1 && fruit22==1 && fruit3==1 ){
+        if (fruit111 == 1 && fruit22 == 1 && fruit3 == 1) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -325,13 +323,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
         ///Naranja-----------------------
 
 
-        if( fruit1 ==2 && fruit2==2 && fruit3==2 ){
+        if (fruit1 == 2 && fruit2 == 2 && fruit3 == 2) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -340,10 +338,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
-        if( fruit11 ==2 && fruit22==2 && fruit33==2 ){
+        if (fruit11 == 2 && fruit22 == 2 && fruit33 == 2) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -352,10 +350,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
-        if( fruit111 ==2 && fruit222==2 && fruit333==2 ){
+        if (fruit111 == 2 && fruit222 == 2 && fruit333 == 2) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -364,10 +362,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
-        if( fruit1 ==2 && fruit11==2 && fruit111==2 ){
+        if (fruit1 == 2 && fruit11 == 2 && fruit111 == 2) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -376,10 +374,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
-        if( fruit2 ==2 && fruit22==2 && fruit222==2 ){
+        if (fruit2 == 2 && fruit22 == 2 && fruit222 == 2) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -388,10 +386,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
-        if( fruit3 ==2 && fruit33==2 && fruit333==2 ){
+        if (fruit3 == 2 && fruit33 == 2 && fruit333 == 2) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -400,12 +398,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
         ///// diagonales
 
-        if( fruit1 ==2 && fruit22==2 && fruit333==2 ){
+        if (fruit1 == 2 && fruit22 == 2 && fruit333 == 2) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -414,10 +412,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
-        if( fruit111 ==2 && fruit22==2 && fruit3==2 ){
+        if (fruit111 == 2 && fruit22 == 2 && fruit3 == 2) {
 
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
@@ -426,13 +424,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toast1.show();
             inhabilitarBotones();
-            band =1;
+            band = 1;
         }
 
-        conPlkayer1.setText(conWinFresa);
-        conPlkayer1.setText(conWinNaranja);
+        conPlayer1.setText(conWinFresa);
+        conPlayer1.setText(conWinNaranja);
 
-        if (btnc >9 && band !=1){
+        if (btnc > 9 && band != 1) {
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
                             "Empate", Toast.LENGTH_SHORT);
@@ -441,8 +439,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             inhabilitarBotones();
         }
 
-
-
+    }
+    catch (Exception e){
+        Toast toast1 =
+                Toast.makeText(getApplicationContext(),
+                        "Error: " + e, Toast.LENGTH_SHORT);
+        toast1.show();
+    }
     }
 
 
@@ -506,5 +509,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         band =5;
     }
 
+    public class MiContador extends CountDownTimer{
 
+        public MiContador(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            //Lo que quieras hacer al finalizar
+
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            //texto a mostrar en cuenta regresiva en un textview
+            contadorSeg.setText((millisUntilFinished/1000+""));
+
+        }
+    }
 }
