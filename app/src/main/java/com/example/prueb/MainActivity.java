@@ -1,9 +1,13 @@
 package com.example.prueb;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.KeyEventDispatcher;
 import android.support.v7.app.AppCompatActivity;
@@ -18,16 +22,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mTextMessage, contadorSeg;
 
     TextView conPlayer1, conPlayer2;
 
-    int btnc = 1,fruit1=0,fruit2=0,fruit3=0,fruit11=0,fruit22=0,fruit33=0,fruit111=0,fruit222=0,
-            fruit333=0,band=0, conWinFresa = 0, conWinNaranja = 0;
+    int btnc = 1, fruit1 = 0, fruit2 = 0, fruit3 = 0, fruit11 = 0, fruit22 = 0, fruit33 = 0, fruit111 = 0, fruit222 = 0,
+            fruit333 = 0, band = 0, conWinFresa = 0, conWinNaranja = 0;
 
-    ImageButton boton1,boton2,boton3,boton11,boton22,boton33,boton111,boton222,boton333;
+    ImageButton boton1, boton2, boton3, boton11, boton22, boton33, boton111, boton222, boton333;
     ImageButton reini, back;
 
     @Override
@@ -70,8 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton222.setOnClickListener(this);
             boton333.setOnClickListener(this);
 
-        }catch (Exception e){
-            Toast toast1 = Toast.makeText(getApplicationContext(),"Error: " + e, Toast.LENGTH_SHORT);
+
+        } catch (Exception e) {
+            Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
 
         }
@@ -128,14 +133,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     cambio_ic(boton333, btnc);
                     break;
             }
-        }catch (Exception e){
-            Toast toast1 = Toast.makeText(getApplicationContext(),"Error: " + e, Toast.LENGTH_SHORT);
+        } catch (Exception e) {
+            Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
 
         }
     }
 
-    protected void cambio_ic(ImageButton btn, int btncc){
+    protected void cambio_ic(ImageButton btn, int btncc) {
         try {
 
             //    girarImReloj();
@@ -227,8 +232,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             validarReglas();
-        }catch (Exception e){
-            Toast toast1 = Toast.makeText(getApplicationContext(),"Error: " + e, Toast.LENGTH_SHORT);
+        } catch (Exception e) {
+            Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
 
         }
@@ -236,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void girarImReloj() {
 
-        MiContador oMicontador = new MiContador(5,5);
+        MiContador oMicontador = new MiContador(5, 5);
         oMicontador.start();
         ImageView imagenReloj = findViewById(R.id.reloj);
 
@@ -250,225 +255,242 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imagenReloj.startAnimation(animation);
     }
 
-    protected void validarReglas(){
-    try {
-        if (fruit1 == 1 && fruit2 == 1 && fruit3 == 1) {
+    protected void validarReglas() {
+        try {
+            if (fruit1 == 1 && fruit2 == 1 && fruit3 == 1) {
 
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Fresa ", Toast.LENGTH_SHORT);
+                conWinFresa++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+            if (fruit11 == 1 && fruit22 == 1 && fruit33 == 1) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Fresa ", Toast.LENGTH_SHORT);
+                conWinFresa++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+            if (fruit111 == 1 && fruit222 == 1 && fruit333 == 1) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Fresa ", Toast.LENGTH_SHORT);
+                conWinFresa++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+            if (fruit1 == 1 && fruit11 == 1 && fruit111 == 1) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Fresa ", Toast.LENGTH_SHORT);
+                conWinFresa++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            if (fruit2 == 1 && fruit22 == 1 && fruit222 == 1) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Fresa ", Toast.LENGTH_SHORT);
+                conWinFresa++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            if (fruit3 == 1 && fruit33 == 1 && fruit333 == 1) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Fresa ", Toast.LENGTH_SHORT);
+                conWinFresa++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            ///// diagonales
+
+            if (fruit1 == 1 && fruit22 == 1 && fruit333 == 1) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Fresa ", Toast.LENGTH_SHORT);
+                conWinFresa++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+
+            if (fruit111 == 1 && fruit22 == 1 && fruit3 == 1) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Fresa ", Toast.LENGTH_SHORT);
+                conWinFresa++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            ///Naranja-----------------------
+
+
+            if (fruit1 == 2 && fruit2 == 2 && fruit3 == 2) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Naranja ", Toast.LENGTH_SHORT);
+                conWinNaranja++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            if (fruit11 == 2 && fruit22 == 2 && fruit33 == 2) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Naranja ", Toast.LENGTH_SHORT);
+                conWinNaranja++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            if (fruit111 == 2 && fruit222 == 2 && fruit333 == 2) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Naranja", Toast.LENGTH_SHORT);
+                conWinNaranja++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            if (fruit1 == 2 && fruit11 == 2 && fruit111 == 2) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Naranja", Toast.LENGTH_SHORT);
+                conWinNaranja++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            if (fruit2 == 2 && fruit22 == 2 && fruit222 == 2) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Naranja", Toast.LENGTH_SHORT);
+                conWinNaranja++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            if (fruit3 == 2 && fruit33 == 2 && fruit333 == 2) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Naranja", Toast.LENGTH_SHORT);
+                conWinNaranja++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            ///// diagonales
+
+            if (fruit1 == 2 && fruit22 == 2 && fruit333 == 2) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Naranja", Toast.LENGTH_SHORT);
+                conWinNaranja++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            if (fruit111 == 2 && fruit22 == 2 && fruit3 == 2) {
+
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Naranja", Toast.LENGTH_SHORT);
+                conWinNaranja++;
+
+                toast1.show();
+                inhabilitarBotones();
+                band = 1;
+            }
+
+            conPlayer1.setText(String.valueOf(conWinFresa));
+            conPlayer2.setText(String.valueOf(conWinNaranja));
+
+            if (btnc > 9 && band != 1) {
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "Empate", Toast.LENGTH_SHORT);
+                toast1.show();
+                inhabilitarBotones();
+
+
+            }
+
+            if (conWinNaranja == 3 ) {
+
+                //incluir popup
+                popup("Naranja","Fresa",conWinNaranja,conWinFresa);
+
+            }
+
+            if (conWinFresa == 3 ) {
+
+                //incluir popup
+                popup("Fresa","Naranja",conWinFresa,conWinNaranja);
+
+            }
+
+
+        } catch (Exception e) {
             Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
+                    Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
-            inhabilitarBotones();
-            band = 1;
         }
-        if (fruit11 == 1 && fruit22 == 1 && fruit33 == 1) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-        if (fruit111 == 1 && fruit222 == 1 && fruit333 == 1) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-        if (fruit1 == 1 && fruit11 == 1 && fruit111 == 1) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        if (fruit2 == 1 && fruit22 == 1 && fruit222 == 1) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        if (fruit3 == 1 && fruit33 == 1 && fruit333 == 1) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        ///// diagonales
-
-        if (fruit1 == 1 && fruit22 == 1 && fruit333 == 1) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-
-        if (fruit111 == 1 && fruit22 == 1 && fruit3 == 1) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Fresa ", Toast.LENGTH_SHORT);
-            conWinFresa++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        ///Naranja-----------------------
-
-
-        if (fruit1 == 2 && fruit2 == 2 && fruit3 == 2) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Naranja ", Toast.LENGTH_SHORT);
-            conWinNaranja++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        if (fruit11 == 2 && fruit22 == 2 && fruit33 == 2) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Naranja ", Toast.LENGTH_SHORT);
-            conWinNaranja++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        if (fruit111 == 2 && fruit222 == 2 && fruit333 == 2) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Naranja", Toast.LENGTH_SHORT);
-            conWinNaranja++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        if (fruit1 == 2 && fruit11 == 2 && fruit111 == 2) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Naranja", Toast.LENGTH_SHORT);
-            conWinNaranja++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        if (fruit2 == 2 && fruit22 == 2 && fruit222 == 2) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Naranja", Toast.LENGTH_SHORT);
-            conWinNaranja++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        if (fruit3 == 2 && fruit33 == 2 && fruit333 == 2) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Naranja", Toast.LENGTH_SHORT);
-            conWinNaranja++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        ///// diagonales
-
-        if (fruit1 == 2 && fruit22 == 2 && fruit333 == 2) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Naranja", Toast.LENGTH_SHORT);
-            conWinNaranja++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        if (fruit111 == 2 && fruit22 == 2 && fruit3 == 2) {
-
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Naranja", Toast.LENGTH_SHORT);
-            conWinNaranja++;
-
-            toast1.show();
-            inhabilitarBotones();
-            band = 1;
-        }
-
-        conPlayer1.setText(String.valueOf(conWinFresa));
-        conPlayer2.setText(String.valueOf(conWinNaranja));
-
-        if (btnc > 9 && band != 1) {
-            Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "Empate", Toast.LENGTH_SHORT);
-            toast1.show();
-            inhabilitarBotones();
-        }
-
-    }catch (Exception e) {
-        Toast toast1 =
-                Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
-        toast1.show();
     }
-    }
 
 
-    protected void inhabilitarBotones(){
+    protected void inhabilitarBotones() {
         try {
             boton1.setEnabled(false);
             boton2.setEnabled(false);
@@ -479,16 +501,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton111.setEnabled(false);
             boton222.setEnabled(false);
             boton333.setEnabled(false);
-        }catch (Exception e){
-            Toast toast1 = Toast.makeText(getApplicationContext(),"Error: " + e, Toast.LENGTH_SHORT);
+        } catch (Exception e) {
+            Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
 
         }
     }
 
 
-    protected void habilitarJuego(){
-        try{
+    protected void habilitarJuego() {
+        try {
 
             boton1.setEnabled(true);
             boton2.setEnabled(true);
@@ -522,24 +544,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             btnc = 1;
-            fruit1=0;
-            fruit2=0;
-            fruit3=0;
-            fruit11=0;
-            fruit22=0;
-            fruit33=0;
-            fruit111=0;
-            fruit222=0;
-            fruit333=0;
-            band =5;
-        }catch (Exception e){
-            Toast toast1 = Toast.makeText(getApplicationContext(),"Error: " + e, Toast.LENGTH_SHORT);
+            fruit1 = 0;
+            fruit2 = 0;
+            fruit3 = 0;
+            fruit11 = 0;
+            fruit22 = 0;
+            fruit33 = 0;
+            fruit111 = 0;
+            fruit222 = 0;
+            fruit333 = 0;
+            band = 5;
+
+
+        } catch (Exception e) {
+            Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
 
         }
     }
 
-    public class MiContador extends CountDownTimer{
+    public class MiContador extends CountDownTimer {
 
         public MiContador(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
@@ -554,8 +578,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onTick(long millisUntilFinished) {
             //texto a mostrar en cuenta regresiva en un textview
-            contadorSeg.setText((millisUntilFinished/1000+""));
+            contadorSeg.setText((millisUntilFinished / 1000 + ""));
 
         }
     }
+
+    public void popup(String Pwin,String Pperd,int win1, int perd1){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(Pwin+ " "+win1+" VS "+perd1+" "+Pperd)
+                .setTitle(Pwin+"  Gano")
+                .setCancelable(false)
+
+                .setPositiveButton("Reiniciar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                habilitarJuego();
+                                conPlayer1.setText("0");
+                                conPlayer2.setText("0");
+
+                                conWinNaranja =0;
+                                conWinFresa =0;
+                            }
+                        });
+
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 }
