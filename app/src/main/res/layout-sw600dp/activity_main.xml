@@ -31,7 +31,7 @@
             tools:layout_editor_absoluteY="28dp" />
 
         <TextView
-            android:id="@+id/txvTimer"
+            android:id="@+id/crono"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10:00:00"
@@ -41,6 +41,7 @@
             android:textStyle="bold|italic"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="96dp" />
+
 
         <TableLayout
             android:layout_width="wrap_content"

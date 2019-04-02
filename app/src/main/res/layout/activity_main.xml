@@ -29,8 +29,8 @@
             tools:layout_editor_absoluteX="82dp"
             tools:layout_editor_absoluteY="28dp" />
 
-        <TextView
-            android:id="@+id/txvWinner"
+        <Chronometer
+            android:id="@+id/crono"
             android:layout_width="225dp"
             android:layout_height="33dp"
             android:text="TextView"
@@ -40,6 +40,8 @@
             android:textStyle="bold|italic"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="96dp" />
+
+
 
         <TableLayout
             android:layout_width="266dp"

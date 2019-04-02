@@ -3,40 +3,62 @@ package com.example.prueb;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.KeyEventDispatcher;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mTextMessage, contadorSeg;
 
-    TextView conPlayer1, conPlayer2;
+    TextView conPlayer1, conPlayer2,txvWinner1;
 
     int btnc = 1, fruit1 = 0, fruit2 = 0, fruit3 = 0, fruit11 = 0, fruit22 = 0, fruit33 = 0, fruit111 = 0, fruit222 = 0,
             fruit333 = 0, band = 0, conWinFresa = 0, conWinNaranja = 0;
 
+    public int counter=0;
     ImageButton boton1, boton2, boton3, boton11, boton22, boton33, boton111, boton222, boton333;
     ImageButton reini, back;
 
+    private String nombrecronometro; // Nombre del cronómetro
+    private int segundos, minutos, horas; // Segundos, minutos y horas que lleva activo el cronómetro
+    private Handler escribirenUI; // Necesario para modificar la UI
+    private Boolean pausado; // Para pausar el cronómetro
+    private String salida; // Salida formateada de los datos del cronómetro
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         try {
+
+
+
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
@@ -51,9 +73,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton333 = findViewById(R.id.button333);
             reini = findViewById(R.id.imbReiniciar);
             //back = findViewById(R.id.imbReiniciar);
-            contadorSeg = findViewById(R.id.txvTimer);
+         //   contadorSeg = findViewById(R.id.txvTimer);
             conPlayer1 = findViewById(R.id.conta1);
             conPlayer2 = findViewById(R.id.conta2);
+         //   txvWinner1 = findViewById(R.id.crono);
+
+
 
             reini.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -73,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton111.setOnClickListener(this);
             boton222.setOnClickListener(this);
             boton333.setOnClickListener(this);
+
+
 
 
         } catch (Exception e) {
@@ -141,9 +168,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void cambio_ic(ImageButton btn, int btncc) {
+
+        //final Chronometer chronometer = (Chronometer)findViewById(R.id.crono);
         try {
 
-            //    girarImReloj();
+                girarImReloj();
+            //    chronometer.start();
+
+
+
 
             if (btncc % 2 != 0) {
 
@@ -259,69 +292,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             if (fruit1 == 1 && fruit2 == 1 && fruit3 == 1) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Fresa ", Toast.LENGTH_SHORT);
+                toastColor(1);
                 conWinFresa++;
-
-                toast1.show();
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit11 == 1 && fruit22 == 1 && fruit33 == 1) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Fresa ", Toast.LENGTH_SHORT);
+                toastColor(1);
                 conWinFresa++;
-
-                toast1.show();
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit111 == 1 && fruit222 == 1 && fruit333 == 1) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Fresa ", Toast.LENGTH_SHORT);
+                toastColor(1);
                 conWinFresa++;
-
-                toast1.show();
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit1 == 1 && fruit11 == 1 && fruit111 == 1) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Fresa ", Toast.LENGTH_SHORT);
+                toastColor(1);
                 conWinFresa++;
-
-                toast1.show();
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit2 == 1 && fruit22 == 1 && fruit222 == 1) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Fresa ", Toast.LENGTH_SHORT);
+                toastColor(1);
                 conWinFresa++;
-
-                toast1.show();
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit3 == 1 && fruit33 == 1 && fruit333 == 1) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Fresa ", Toast.LENGTH_SHORT);
+                toastColor(1);
                 conWinFresa++;
-
-                toast1.show();
                 inhabilitarBotones();
                 band = 1;
             }
@@ -330,12 +339,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (fruit1 == 1 && fruit22 == 1 && fruit333 == 1) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Fresa ", Toast.LENGTH_SHORT);
-                conWinFresa++;
 
-                toast1.show();
+                conWinFresa++;
+                toastColor(1);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -343,12 +349,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (fruit111 == 1 && fruit22 == 1 && fruit3 == 1) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Fresa ", Toast.LENGTH_SHORT);
-                conWinFresa++;
 
-                toast1.show();
+                conWinFresa++;
+                toastColor(1);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -358,72 +361,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (fruit1 == 2 && fruit2 == 2 && fruit3 == 2) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Naranja ", Toast.LENGTH_SHORT);
-                conWinNaranja++;
 
-                toast1.show();
+                conWinNaranja++;
+                toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit11 == 2 && fruit22 == 2 && fruit33 == 2) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Naranja ", Toast.LENGTH_SHORT);
-                conWinNaranja++;
 
-                toast1.show();
+                conWinNaranja++;
+                toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit111 == 2 && fruit222 == 2 && fruit333 == 2) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Naranja", Toast.LENGTH_SHORT);
-                conWinNaranja++;
 
-                toast1.show();
+                conWinNaranja++;
+                toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit1 == 2 && fruit11 == 2 && fruit111 == 2) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Naranja", Toast.LENGTH_SHORT);
-                conWinNaranja++;
 
-                toast1.show();
+                conWinNaranja++;
+                toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit2 == 2 && fruit22 == 2 && fruit222 == 2) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Naranja", Toast.LENGTH_SHORT);
-                conWinNaranja++;
 
-                toast1.show();
+                conWinNaranja++;
+                toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit3 == 2 && fruit33 == 2 && fruit333 == 2) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Naranja", Toast.LENGTH_SHORT);
-                conWinNaranja++;
 
-                toast1.show();
+                conWinNaranja++;
+                toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -432,24 +417,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (fruit1 == 2 && fruit22 == 2 && fruit333 == 2) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Naranja", Toast.LENGTH_SHORT);
                 conWinNaranja++;
-
-                toast1.show();
+                toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit111 == 2 && fruit22 == 2 && fruit3 == 2) {
 
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Naranja", Toast.LENGTH_SHORT);
-                conWinNaranja++;
 
-                toast1.show();
+                conWinNaranja++;
+                toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -458,10 +436,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             conPlayer2.setText(String.valueOf(conWinNaranja));
 
             if (btnc > 9 && band != 1) {
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "Empate", Toast.LENGTH_SHORT);
-                toast1.show();
+                toastColor(3);
                 inhabilitarBotones();
 
 
@@ -589,7 +564,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setTitle(Pwin+"  Gano")
                 .setCancelable(false)
 
-                .setPositiveButton("Reiniciar",
+                .setPositiveButton("Reiniciar Juego",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -606,6 +581,71 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    public void toastColor(int color){
+
+        if(color ==2){
+            SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
+
+                    .setText("Punto para Naranja")
+                    .setDuration(Style.DURATION_MEDIUM)
+                    .setFrame(Style.FRAME_KITKAT)
+                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_ORANGE))
+                    .setAnimations(Style.ANIMATIONS_POP).show();
+           
+
+        }
+
+        if(color==1){
+            SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
+                    .setText("Punto para Fresa")
+                    .setDuration(Style.DURATION_MEDIUM)
+                    .setFrame(Style.FRAME_KITKAT)
+                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED))
+                    .setAnimations(Style.ANIMATIONS_POP).show();
+
+        }
+
+        if(color==3){
+            SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
+                    .setText("Empate")
+                    .setDuration(Style.DURATION_MEDIUM)
+                    .setFrame(Style.FRAME_KITKAT)
+                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE))
+                    .setAnimations(Style.ANIMATIONS_POP).show();
+
+        }
+
+
+
+    }
+
+    /*
+    public void cronometro(){
+
+        Chronometer chronometer = (Chronometer)findViewById(R.id.crono);
+
+        chronometer.start();
+
+
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            int counter = 10;
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                if(counter < 0)
+                {
+                    counter = 10;
+                }
+                chronometer.setText(counter + "");
+                counter--;
+            }
+        });
+
+
+    }
+
+
+*/
 
 
 }
