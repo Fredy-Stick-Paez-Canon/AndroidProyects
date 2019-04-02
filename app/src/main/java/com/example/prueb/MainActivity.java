@@ -40,9 +40,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int btnc = 1, fruit1 = 0, fruit2 = 0, fruit3 = 0, fruit11 = 0, fruit22 = 0, fruit33 = 0, fruit111 = 0, fruit222 = 0,
             fruit333 = 0, band = 0, conWinFresa = 0, conWinNaranja = 0;
 
-    public int counter=0;
-    ImageButton boton1, boton2, boton3, boton11, boton22, boton33, boton111, boton222, boton333;
+    boolean isRunning = false;
+
+    public int counter=0;ImageButton boton1, boton2, boton3, boton11, boton22, boton33, boton111, boton222, boton333;
     ImageButton reini, back;
+
+    CountDownTimer cdt;
 
     private String nombrecronometro; // Nombre del cronómetro
     private int segundos, minutos, horas; // Segundos, minutos y horas que lleva activo el cronómetro
@@ -591,20 +594,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void cronometro(){
+        if(!isRunning) {
+            cdt = new CountDownTimer(10000, 1000) {
 
-        new CountDownTimer(10000, 1000) {
+                public void onTick(long millisUntilFinished) {
 
-            public void onTick(long millisUntilFinished) {
-                txvWinner1.setText("" + millisUntilFinished / 1000);
-                //here you can have your logic to set text to edittext
-            }
+                    txvWinner1.setText("" + millisUntilFinished / 1000);
+                }
 
-            public void onFinish() {
-                btnc++;
-            }
+                public void onFinish() {
+                    //btnc++;
+                }
 
-        }.start();
-
-
+            }.start();
+            isRunning = true;
+        }else{
+            cdt.cancel();
+            isRunning = false;
+        }
     }
 }
