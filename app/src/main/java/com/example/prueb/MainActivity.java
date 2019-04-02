@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         try {
-
-
-
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
@@ -76,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          //   contadorSeg = findViewById(R.id.txvTimer);
             conPlayer1 = findViewById(R.id.conta1);
             conPlayer2 = findViewById(R.id.conta2);
-         //   txvWinner1 = findViewById(R.id.crono);
+            txvWinner1 = findViewById(R.id.crono);
 
 
 
@@ -112,8 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         try {
-
-
             switch (v.getId()) {
                 case R.id.button1:
                     btnc = btnc + 1;
@@ -169,14 +164,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void cambio_ic(ImageButton btn, int btncc) {
 
-        //final Chronometer chronometer = (Chronometer)findViewById(R.id.crono);
         try {
 
                 girarImReloj();
-            //    chronometer.start();
-
-
-
+                cronometro();
 
             if (btncc % 2 != 0) {
 
@@ -274,8 +265,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void girarImReloj() {
 
-        MiContador oMicontador = new MiContador(5, 5);
-        oMicontador.start();
         ImageView imagenReloj = findViewById(R.id.reloj);
 
         RotateAnimation animation = new RotateAnimation(0, 360,
@@ -538,26 +527,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public class MiContador extends CountDownTimer {
-
-        public MiContador(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onFinish() {
-            //Lo que quieras hacer al finalizar
-
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            //texto a mostrar en cuenta regresiva en un textview
-            contadorSeg.setText((millisUntilFinished / 1000 + ""));
-
-        }
-    }
-
     public void popup(String Pwin,String Pperd,int win1, int perd1){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Pwin+ " "+win1+" VS "+perd1+" "+Pperd)
@@ -620,32 +589,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    /*
+
     public void cronometro(){
 
-        Chronometer chronometer = (Chronometer)findViewById(R.id.crono);
+        new CountDownTimer(10000, 1000) {
 
-        chronometer.start();
-
-
-        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            int counter = 10;
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                if(counter < 0)
-                {
-                    counter = 10;
-                }
-                chronometer.setText(counter + "");
-                counter--;
+            public void onTick(long millisUntilFinished) {
+                txvWinner1.setText("" + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
             }
-        });
+
+            public void onFinish() {
+                btnc++;
+            }
+
+        }.start();
 
 
     }
-
-
-*/
-
-
 }
