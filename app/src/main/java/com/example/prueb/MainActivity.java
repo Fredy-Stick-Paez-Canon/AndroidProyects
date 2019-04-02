@@ -46,12 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton reini, back;
 
     CountDownTimer cdt;
+    long min =0;
 
-    private String nombrecronometro; // Nombre del cronómetro
-    private int segundos, minutos, horas; // Segundos, minutos y horas que lleva activo el cronómetro
-    private Handler escribirenUI; // Necesario para modificar la UI
-    private Boolean pausado; // Para pausar el cronómetro
-    private String salida; // Salida formateada de los datos del cronómetro
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fruit111 = 2;
                     boton111.setEnabled(false);
                 }
+
                 if (btn == boton222) {
                     fruit222 = 2;
                     boton222.setEnabled(false);
@@ -522,6 +519,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fruit333 = 0;
             band = 5;
 
+        //    cdt.cancel();
+            txvWinner1.setText("10");
+            txvWinner1.setTextColor(Color.rgb(53,234,99));
+
 
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
@@ -546,6 +547,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 conWinNaranja =0;
                                 conWinFresa =0;
+                                txvWinner1.setTextColor(Color.rgb(53,234,99));
+                                cdt.cancel();
+                                txvWinner1.setText("10");
                             }
                         });
 
@@ -588,29 +592,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+        if(color==4){
+            SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
+                    .setText("Siguiente Turno")
+                    .setDuration(Style.DURATION_MEDIUM)
+                    .setFrame(Style.FRAME_KITKAT)
+                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE_GREY))
+                    .setAnimations(Style.ANIMATIONS_POP).show();
+
+        }
+
 
 
     }
 
 
     public void cronometro(){
+        txvWinner1.setTextColor(Color.rgb(53,234,99));
+        girarCrono(2);
+
         if(!isRunning) {
             cdt = new CountDownTimer(10000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
 
-                    txvWinner1.setText("" + millisUntilFinished / 1000);
+                    txvWinner1.setText("" + millisUntilFinished / 1100);
+                    min = millisUntilFinished / 1000;
+
+                    if(min==3){
+                        txvWinner1.setTextColor(Color.rgb(255, 0, 0));
+                        girarCrono(1);
+                    }
                 }
 
                 public void onFinish() {
-                    //btnc++;
+                    btnc = btnc + 1;
+                    toastColor(4);
                 }
 
             }.start();
             isRunning = true;
-        }else{
+        }else if(min!=10){
             cdt.cancel();
-            isRunning = false;
+            cdt.start();
+           // isRunning = false;
+        }
+    }
+
+
+    protected void girarCrono(int fla) {
+
+
+        RotateAnimation animation = new RotateAnimation(0, 40,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+        if(fla ==1) {
+            animation.setDuration(2000);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatMode(Animation.INFINITE);
+            txvWinner1.startAnimation(animation);
+        }else{
+            animation.cancel();
         }
     }
 }
