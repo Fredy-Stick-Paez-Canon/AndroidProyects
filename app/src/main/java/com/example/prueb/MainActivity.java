@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+import com.plattysoft.leonids.ParticleSystem;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -277,38 +278,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void validarReglas() {
         try {
             if (fruit1 == 1 && fruit2 == 1 && fruit3 == 1) {
-                toastColor(1);
+                //toastColor(1);
+                ganaste(2);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit11 == 1 && fruit22 == 1 && fruit33 == 1) {
-                toastColor(1);
+                //toastColor(1);
+                ganaste(2);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit111 == 1 && fruit222 == 1 && fruit333 == 1) {
-                toastColor(1);
+                //toastColor(1);
+                ganaste(2);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit1 == 1 && fruit11 == 1 && fruit111 == 1) {
-
-                toastColor(1);
+                //toastColor(1);
+                ganaste(2);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit2 == 1 && fruit22 == 1 && fruit222 == 1) {
-                toastColor(1);
+                //toastColor(1);
+                ganaste(2);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit3 == 1 && fruit33 == 1 && fruit333 == 1) {
-                toastColor(1);
+                //toastColor(1);
+                ganaste(2);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
@@ -318,13 +324,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (fruit1 == 1 && fruit22 == 1 && fruit333 == 1) {
                 conWinFresa++;
-                toastColor(1);
+                ganaste(2);
+                //toastColor(1);
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit111 == 1 && fruit22 == 1 && fruit3 == 1) {
                 conWinFresa++;
-                toastColor(1);
+                //toastColor(1);
+                ganaste(2);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -334,28 +342,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (fruit1 == 2 && fruit2 == 2 && fruit3 == 2) {
                 conWinNaranja++;
-                toastColor(2);
+                //toastColor(2);
+                ganaste(1);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit11 == 2 && fruit22 == 2 && fruit33 == 2) {
                 conWinNaranja++;
-                toastColor(2);
+                //toastColor(2);
+                ganaste(1);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit111 == 2 && fruit222 == 2 && fruit333 == 2) {
                 conWinNaranja++;
-                toastColor(2);
+                //toastColor(2);
+                ganaste(1);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit1 == 2 && fruit11 == 2 && fruit111 == 2) {
                 conWinNaranja++;
-                toastColor(2);
+                //toastColor(2);
+                ganaste(1);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -363,16 +375,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (fruit2 == 2 && fruit22 == 2 && fruit222 == 2) {
 
                 conWinNaranja++;
-                toastColor(2);
+                //toastColor(2);
+                ganaste(1);
                 inhabilitarBotones();
                 band = 1;
             }
 
             if (fruit3 == 2 && fruit33 == 2 && fruit333 == 2) {
-
-
+                ganaste(1);
                 conWinNaranja++;
-                toastColor(2);
+                //toastColor(2);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -382,7 +394,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (fruit1 == 2 && fruit22 == 2 && fruit333 == 2) {
 
                 conWinNaranja++;
-                toastColor(2);
+                //toastColor(2);
+                ganaste(1);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -390,7 +403,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (fruit111 == 2 && fruit22 == 2 && fruit3 == 2) {
 
                 conWinNaranja++;
-                toastColor(2);
+                //toastColor(2);
+                ganaste(1);
                 inhabilitarBotones();
                 band = 1;
             }
@@ -613,4 +627,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             animation.cancel();
         }
     }
+
+    protected void ganaste(int winner) {
+
+        if (winner==2) {
+
+            new ParticleSystem(this, 150, R.drawable.ic_confe1, 10000)
+                    .setSpeedRange(0.2f, 0.5f)
+                    .setRotationSpeed(144)
+                    .oneShot(findViewById(R.id.conta1), 80);
+
+            new ParticleSystem(this, 80, R.drawable.ic_bola, 10000)
+                    .setSpeedRange(0.2f, 0.5f)
+                    .setRotationSpeed(144)
+                    .oneShot(findViewById(R.id.conta1), 80);
+
+            new ParticleSystem(this, 80, R.drawable.ic_star, 10000)
+                    .setSpeedRange(0.2f, 0.5f)
+                    .setRotationSpeed(144)
+                    .oneShot(findViewById(R.id.conta1), 80);
+
+        }
+
+        if (winner==1) {
+
+            new ParticleSystem(this, 80, R.drawable.ic_confe2, 10000)
+                    .setSpeedRange(0.2f, 0.5f)
+                    .setRotationSpeed(144)
+                    .oneShot(findViewById(R.id.conta2), 80);
+
+            new ParticleSystem(this, 80, R.drawable.ic_bola2, 10000)
+                    .setSpeedRange(0.2f, 0.5f)
+                    .setRotationSpeed(144)
+                    .oneShot(findViewById(R.id.conta2), 80);
+
+            new ParticleSystem(this, 80, R.drawable.ic_star1, 10000)
+                    .setSpeedRange(0.2f, 0.5f)
+                    .setRotationSpeed(144)
+                    .oneShot(findViewById(R.id.conta2), 80);
+
+        }
+    }
+
 }
