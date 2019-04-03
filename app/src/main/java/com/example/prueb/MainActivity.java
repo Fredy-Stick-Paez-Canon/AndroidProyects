@@ -277,42 +277,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void validarReglas() {
         try {
-            if (fruit1 == 1 && fruit2 == 1 && fruit3 == 1) {
-                //toastColor(1);
-                ganaste(2);
-                conWinFresa++;
-                inhabilitarBotones();
-                band = 1;
-            }
-            if (fruit11 == 1 && fruit22 == 1 && fruit33 == 1) {
-                //toastColor(1);
-                ganaste(2);
-                conWinFresa++;
-                inhabilitarBotones();
-                band = 1;
-            }
-            if (fruit111 == 1 && fruit222 == 1 && fruit333 == 1) {
-                //toastColor(1);
-                ganaste(2);
-                conWinFresa++;
-                inhabilitarBotones();
-                band = 1;
-            }
-            if (fruit1 == 1 && fruit11 == 1 && fruit111 == 1) {
-                //toastColor(1);
-                ganaste(2);
-                conWinFresa++;
-                inhabilitarBotones();
-                band = 1;
-            }
-            if (fruit2 == 1 && fruit22 == 1 && fruit222 == 1) {
-                //toastColor(1);
-                ganaste(2);
-                conWinFresa++;
-                inhabilitarBotones();
-                band = 1;
-            }
-            if (fruit3 == 1 && fruit33 == 1 && fruit333 == 1) {
+            if ((fruit1 == 1 && fruit2 == 1 && fruit3 == 1)||
+                    (fruit11 == 1 && fruit22 == 1 && fruit33 == 1)||
+                    (fruit111 == 1 && fruit222 == 1 && fruit333 == 1)||
+                    (fruit1 == 1 && fruit11 == 1 && fruit111 == 1)||
+                    (fruit2 == 1 && fruit22 == 1 && fruit222 == 1)||
+                    (fruit3 == 1 && fruit33 == 1 && fruit333 == 1)||
+                    (fruit1 == 1 && fruit22 == 1 && fruit333 == 1)||
+                    (fruit111 == 1 && fruit22 == 1 && fruit3 == 1)){
                 //toastColor(1);
                 ganaste(2);
                 conWinFresa++;
@@ -320,88 +292,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 band = 1;
             }
 
-            ///// diagonales
-
-            if (fruit1 == 1 && fruit22 == 1 && fruit333 == 1) {
-                conWinFresa++;
-                ganaste(2);
-                //toastColor(1);
-                inhabilitarBotones();
-                band = 1;
-            }
-            if (fruit111 == 1 && fruit22 == 1 && fruit3 == 1) {
-                conWinFresa++;
-                //toastColor(1);
-                ganaste(2);
-                inhabilitarBotones();
-                band = 1;
-            }
-
-            ///Naranja-----------------------
-
-
-            if (fruit1 == 2 && fruit2 == 2 && fruit3 == 2) {
-                conWinNaranja++;
-                //toastColor(2);
-                ganaste(1);
-                inhabilitarBotones();
-                band = 1;
-            }
-
-            if (fruit11 == 2 && fruit22 == 2 && fruit33 == 2) {
-                conWinNaranja++;
-                //toastColor(2);
-                ganaste(1);
-                inhabilitarBotones();
-                band = 1;
-            }
-
-            if (fruit111 == 2 && fruit222 == 2 && fruit333 == 2) {
-                conWinNaranja++;
-                //toastColor(2);
-                ganaste(1);
-                inhabilitarBotones();
-                band = 1;
-            }
-
-            if (fruit1 == 2 && fruit11 == 2 && fruit111 == 2) {
-                conWinNaranja++;
-                //toastColor(2);
-                ganaste(1);
-                inhabilitarBotones();
-                band = 1;
-            }
-
-            if (fruit2 == 2 && fruit22 == 2 && fruit222 == 2) {
-
-                conWinNaranja++;
-                //toastColor(2);
-                ganaste(1);
-                inhabilitarBotones();
-                band = 1;
-            }
-
-            if (fruit3 == 2 && fruit33 == 2 && fruit333 == 2) {
-                ganaste(1);
-                conWinNaranja++;
-                //toastColor(2);
-                inhabilitarBotones();
-                band = 1;
-            }
-
-            ///// diagonales
-
-            if (fruit1 == 2 && fruit22 == 2 && fruit333 == 2) {
-
-                conWinNaranja++;
-                //toastColor(2);
-                ganaste(1);
-                inhabilitarBotones();
-                band = 1;
-            }
-
-            if (fruit111 == 2 && fruit22 == 2 && fruit3 == 2) {
-
+            /*Naranja*/
+            if ((fruit1 == 2 && fruit2 == 2 && fruit3 == 2)||
+                    (fruit11 == 2 && fruit22 == 2 && fruit33 == 2)||
+                    (fruit111 == 2 && fruit222 == 2 && fruit333 == 2)||
+                    (fruit1 == 2 && fruit11 == 2 && fruit111 == 2)||
+                    (fruit2 == 2 && fruit22 == 2 && fruit222 == 2)||
+                    (fruit3 == 2 && fruit33 == 2 && fruit333 == 2)||
+                    (fruit1 == 2 && fruit22 == 2 && fruit333 == 2)||
+                    (fruit111 == 2 && fruit22 == 2 && fruit3 == 2)){
                 conWinNaranja++;
                 //toastColor(2);
                 ganaste(1);
@@ -531,7 +430,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         });
 
-
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -542,7 +440,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
 
                     .setText("Punto para Naranja")
-                    .setDuration(Style.DURATION_MEDIUM)
+                    .setDuration(Style.DURATION_SHORT)
                     .setFrame(Style.FRAME_KITKAT)
                     .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_ORANGE))
                     .setAnimations(Style.ANIMATIONS_POP).show();
@@ -551,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(color==1){
             SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
                     .setText("Punto para Fresa")
-                    .setDuration(Style.DURATION_MEDIUM)
+                    .setDuration(Style.DURATION_SHORT)
                     .setFrame(Style.FRAME_KITKAT)
                     .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED))
                     .setAnimations(Style.ANIMATIONS_POP).show();
@@ -612,7 +510,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void girarCrono(int fla) {
-
 
         RotateAnimation animation = new RotateAnimation(0, 40,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f,
