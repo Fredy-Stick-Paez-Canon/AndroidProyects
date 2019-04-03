@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -48,12 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CountDownTimer cdt;
     long min =0;
 
+    private MediaPlayer mp;
+    private MediaPlayer mp1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
@@ -74,15 +74,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             conPlayer2 = findViewById(R.id.conta2);
             txvWinner1 = findViewById(R.id.crono);
 
-
+            mp = MediaPlayer.create(this, R.raw.clic);
+            mp1 = MediaPlayer.create(this, R.raw.reinicio);
 
             reini.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
                     habilitarJuego();
-
                 }
-
             });
 
             boton1.setOnClickListener(this);
@@ -95,9 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton222.setOnClickListener(this);
             boton333.setOnClickListener(this);
 
-
-
-
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
@@ -108,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         try {
+            mp.start();
             switch (v.getId()) {
                 case R.id.button1:
                     btnc = btnc + 1;
@@ -164,8 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void cambio_ic(ImageButton btn, int btncc) {
 
         try {
-
-                girarImReloj();
+                girarImReloj(0);
                 cronometro();
 
             if (btncc % 2 != 0) {
@@ -210,9 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fruit333 = 1;
                     boton333.setEnabled(false);
                 }
-
             } else {
-
                 btn.setBackgroundResource(R.mipmap.naranja);
                 if (btn == boton1) {
                     fruit1 = 2;
@@ -263,15 +256,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void girarImReloj() {
+    protected void girarImReloj(int seg) {
 
         ImageView imagenReloj = findViewById(R.id.reloj);
 
-        RotateAnimation animation = new RotateAnimation(0, 360,
+        RotateAnimation animation = new RotateAnimation( 0,360,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 
-        animation.setDuration(2000);
+        if (seg <= 5 && seg != 0)
+            animation.setDuration(900);
+        else
+            animation.setDuration(2000);
+
         animation.setRepeatCount(Animation.INFINITE);
         animation.setRepeatMode(Animation.INFINITE);
         imagenReloj.startAnimation(animation);
@@ -280,21 +277,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void validarReglas() {
         try {
             if (fruit1 == 1 && fruit2 == 1 && fruit3 == 1) {
-
                 toastColor(1);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit11 == 1 && fruit22 == 1 && fruit33 == 1) {
-
                 toastColor(1);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
             }
             if (fruit111 == 1 && fruit222 == 1 && fruit333 == 1) {
-
                 toastColor(1);
                 conWinFresa++;
                 inhabilitarBotones();
@@ -307,17 +301,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 inhabilitarBotones();
                 band = 1;
             }
-
             if (fruit2 == 1 && fruit22 == 1 && fruit222 == 1) {
-
                 toastColor(1);
                 conWinFresa++;
                 inhabilitarBotones();
                 band = 1;
             }
-
             if (fruit3 == 1 && fruit33 == 1 && fruit333 == 1) {
-
                 toastColor(1);
                 conWinFresa++;
                 inhabilitarBotones();
@@ -327,18 +317,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ///// diagonales
 
             if (fruit1 == 1 && fruit22 == 1 && fruit333 == 1) {
-
-
                 conWinFresa++;
                 toastColor(1);
                 inhabilitarBotones();
                 band = 1;
             }
-
-
             if (fruit111 == 1 && fruit22 == 1 && fruit3 == 1) {
-
-
                 conWinFresa++;
                 toastColor(1);
                 inhabilitarBotones();
@@ -349,8 +333,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             if (fruit1 == 2 && fruit2 == 2 && fruit3 == 2) {
-
-
                 conWinNaranja++;
                 toastColor(2);
                 inhabilitarBotones();
@@ -358,8 +340,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (fruit11 == 2 && fruit22 == 2 && fruit33 == 2) {
-
-
                 conWinNaranja++;
                 toastColor(2);
                 inhabilitarBotones();
@@ -367,8 +347,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (fruit111 == 2 && fruit222 == 2 && fruit333 == 2) {
-
-
                 conWinNaranja++;
                 toastColor(2);
                 inhabilitarBotones();
@@ -376,8 +354,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (fruit1 == 2 && fruit11 == 2 && fruit111 == 2) {
-
-
                 conWinNaranja++;
                 toastColor(2);
                 inhabilitarBotones();
@@ -385,7 +361,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (fruit2 == 2 && fruit22 == 2 && fruit222 == 2) {
-
 
                 conWinNaranja++;
                 toastColor(2);
@@ -414,7 +389,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (fruit111 == 2 && fruit22 == 2 && fruit3 == 2) {
 
-
                 conWinNaranja++;
                 toastColor(2);
                 inhabilitarBotones();
@@ -427,24 +401,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (btnc > 9 && band != 1) {
                 toastColor(3);
                 inhabilitarBotones();
-
-
             }
 
             if (conWinNaranja == 3 ) {
 
                 //incluir popup
                 popup("Naranja","Fresa",conWinNaranja,conWinFresa);
-
             }
 
             if (conWinFresa == 3 ) {
 
                 //incluir popup
                 popup("Fresa","Naranja",conWinFresa,conWinNaranja);
-
             }
-
 
         } catch (Exception e) {
             Toast toast1 =
@@ -452,7 +421,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             toast1.show();
         }
     }
-
 
     protected void inhabilitarBotones() {
         try {
@@ -472,10 +440,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     protected void habilitarJuego() {
         try {
 
+            mp1.start();
             boton1.setEnabled(true);
             boton2.setEnabled(true);
             boton3.setEnabled(true);
@@ -506,7 +474,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton222.setBackgroundResource(R.drawable.stylebuttonprin);
             boton333.setBackgroundResource(R.drawable.stylebuttonprin);
 
-
             btnc = 1;
             fruit1 = 0;
             fruit2 = 0;
@@ -523,7 +490,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             txvWinner1.setText("10");
             txvWinner1.setTextColor(Color.rgb(53,234,99));
 
-
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
@@ -536,7 +502,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setMessage(Pwin+ " "+win1+" VS "+perd1+" "+Pperd)
                 .setTitle(Pwin+"  Gano")
                 .setCancelable(false)
-
                 .setPositiveButton("Reiniciar Juego",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -544,7 +509,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 habilitarJuego();
                                 conPlayer1.setText("0");
                                 conPlayer2.setText("0");
-
                                 conWinNaranja =0;
                                 conWinFresa =0;
                                 txvWinner1.setTextColor(Color.rgb(53,234,99));
@@ -568,8 +532,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .setFrame(Style.FRAME_KITKAT)
                     .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_ORANGE))
                     .setAnimations(Style.ANIMATIONS_POP).show();
-           
-
         }
 
         if(color==1){
@@ -579,7 +541,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .setFrame(Style.FRAME_KITKAT)
                     .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED))
                     .setAnimations(Style.ANIMATIONS_POP).show();
-
         }
 
         if(color==3){
@@ -589,7 +550,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .setFrame(Style.FRAME_KITKAT)
                     .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE))
                     .setAnimations(Style.ANIMATIONS_POP).show();
-
         }
 
         if(color==4){
@@ -601,11 +561,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .setAnimations(Style.ANIMATIONS_POP).show();
 
         }
-
-
-
     }
-
 
     public void cronometro(){
         txvWinner1.setTextColor(Color.rgb(53,234,99));
@@ -623,13 +579,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         txvWinner1.setTextColor(Color.rgb(255, 0, 0));
                         girarCrono(1);
                     }
+                    if(min <= 5){
+                        girarImReloj((int)min);
+                    }
                 }
 
                 public void onFinish() {
                     btnc = btnc + 1;
                     toastColor(4);
                 }
-
             }.start();
             isRunning = true;
         }else if(min!=10){
@@ -638,7 +596,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            // isRunning = false;
         }
     }
-
 
     protected void girarCrono(int fla) {
 
