@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView conPlayer1, conPlayer2,txvWinner1;
 
     int btnc = 1, fruit1 = 0, fruit2 = 0, fruit3 = 0, fruit11 = 0, fruit22 = 0, fruit33 = 0, fruit111 = 0, fruit222 = 0,
-            fruit333 = 0, band = 0, conWinFresa = 0, conWinNaranja = 0;
+            fruit333 = 0, band = 0, conWinFresa = 0, conWinNaranja = 0,botonContador=1;
 
     boolean isRunning = false;
 
@@ -107,47 +107,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mp.start();
             switch (v.getId()) {
                 case R.id.button1:
+
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton1, btnc);
                     break;
 
                 case R.id.button2:
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton2, btnc);
                     break;
 
                 case R.id.button3:
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton3, btnc);
                     break;
 
                 case R.id.button11:
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton11, btnc);
                     break;
 
                 case R.id.button22:
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton22, btnc);
                     break;
 
                 case R.id.button33:
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton33, btnc);
                     break;
 
                 case R.id.button111:
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton111, btnc);
                     break;
 
                 case R.id.button222:
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton222, btnc);
                     break;
 
                 case R.id.button333:
                     btnc = btnc + 1;
+                    botonContador= botonContador+1;
                     cambio_ic(boton333, btnc);
                     break;
             }
@@ -311,10 +321,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             conPlayer1.setText(String.valueOf(conWinFresa));
             conPlayer2.setText(String.valueOf(conWinNaranja));
 
-            if (btnc > 9 && band != 1) {
+
+
+            if (botonContador > 9 && band != 1) {
                 toastColor(3);
                 inhabilitarBotones();
             }
+            /*
+            if (btnc > 9 && band != 1) {
+                toastColor(3);
+               // btnc = btnc - 2;
+                inhabilitarBotones();
+            }
+            */
 
             if (conWinNaranja == 3 ) {
 
@@ -398,6 +417,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fruit222 = 0;
             fruit333 = 0;
             band = 5;
+            botonContador=1;
 
         //    cdt.cancel();
             txvWinner1.setText("10");
@@ -497,7 +517,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 public void onFinish() {
-                    btnc = btnc + 1;
+
+                    btnc = btnc +1;
                     toastColor(4);
                 }
             }.start();
