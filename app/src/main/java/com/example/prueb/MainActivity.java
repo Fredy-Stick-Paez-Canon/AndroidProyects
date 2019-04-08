@@ -50,8 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CountDownTimer cdt;
     long min =0;
 
-    private MediaPlayer mp;
-    private MediaPlayer mp1;
+    private MediaPlayer mpClic;
+    private MediaPlayer mpReinicio;
+    private MediaPlayer mpFondo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +76,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             conPlayer2 = findViewById(R.id.conta2);
             txvWinner1 = findViewById(R.id.crono);
 
-            mp = MediaPlayer.create(this, R.raw.clic);
-            mp1 = MediaPlayer.create(this, R.raw.reinicio);
+            mpClic = MediaPlayer.create(this, R.raw.clic);
+            mpReinicio = MediaPlayer.create(this, R.raw.reinicio);
+            mpFondo = MediaPlayer.create(this, R.raw.fondo);
+            mpFondo.setLooping(true);
+            mpFondo.start();
 
             reini.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         try {
-            mp.start();
+            mpClic.start();
             switch (v.getId()) {
                 case R.id.button1:
 
@@ -375,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void habilitarJuego() {
         try {
 
-            mp1.start();
+            mpReinicio.start();
             boton1.setEnabled(true);
             boton2.setEnabled(true);
             boton3.setEnabled(true);
@@ -497,7 +501,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void cronometro(){
         txvWinner1.setTextColor(Color.rgb(53,234,99));
-        girarCrono(2);
+        //girarCrono(2);
 
         if(!isRunning) {
             cdt = new CountDownTimer(10000, 1000) {
@@ -509,7 +513,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(min==3){
                         txvWinner1.setTextColor(Color.rgb(255, 0, 0));
-                        girarCrono(1);
+                        //girarCrono(1);
                     }
                     if(min <= 5){
                         girarImReloj((int)min);
@@ -530,7 +534,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void girarCrono(int fla) {
+    /*protected void girarCrono(int fla) {
 
         RotateAnimation animation = new RotateAnimation(0, 40,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f,
@@ -544,7 +548,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             animation.cancel();
         }
-    }
+    }*/
 
     protected void ganaste(int winner) {
 
@@ -587,4 +591,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        if(mpFondo.isPlaying()){
+            mpFondo.stop();
+            mpFondo.release();
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        mpFondo.start();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        mpFondo.pause();
+    }
 }
