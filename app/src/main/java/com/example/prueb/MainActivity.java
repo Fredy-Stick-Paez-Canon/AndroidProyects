@@ -33,18 +33,21 @@ import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.plattysoft.leonids.ParticleSystem;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mTextMessage, contadorSeg;
 
     TextView conPlayer1, conPlayer2,txvWinner1;
 
-    int btnc = 1, fruit1 = 0, fruit2 = 0, fruit3 = 0, fruit11 = 0, fruit22 = 0, fruit33 = 0, fruit111 = 0, fruit222 = 0,
-            fruit333 = 0, band = 0, conWinFresa = 0, conWinNaranja = 0,botonContador=1;
+    int btnc = 1,band = 0, conWinFresa = 0, conWinNaranja = 0,botonContador=1;
+    //int fruit1 = 0, fruit2 = 0, fruit3 = 0, fruit11 = 0, fruit22 = 0, fruit33 = 0, fruit111 = 0, fruit222 = 0, fruit333 = 0;
 
-    boolean isRunning = false;
+    boolean isRunning = false, matGame[][];
 
-    public int counter=0;ImageButton boton1, boton2, boton3, boton11, boton22, boton33, boton111, boton222, boton333;
+    public int counter=0;
+    ImageButton boton11, boton12, boton13, boton21, boton22, boton23, boton31, boton32, boton33, botonClic;
     ImageButton reini, back;
 
     CountDownTimer cdt;
@@ -60,15 +63,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            boton1 = findViewById(R.id.button1);
-            boton2 = findViewById(R.id.button2);
-            boton3 = findViewById(R.id.button3);
             boton11 = findViewById(R.id.button11);
+            boton12 = findViewById(R.id.button12);
+            boton13 = findViewById(R.id.button13);
+            boton21 = findViewById(R.id.button21);
             boton22 = findViewById(R.id.button22);
+            boton23 = findViewById(R.id.button23);
+            boton31 = findViewById(R.id.button31);
+            boton32 = findViewById(R.id.button32);
             boton33 = findViewById(R.id.button33);
-            boton111 = findViewById(R.id.button111);
-            boton222 = findViewById(R.id.button222);
-            boton333 = findViewById(R.id.button333);
             reini = findViewById(R.id.imbReiniciar);
             //back = findViewById(R.id.imbReiniciar);
          //   contadorSeg = findViewById(R.id.txvTimer);
@@ -88,15 +91,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
-            boton1.setOnClickListener(this);
-            boton2.setOnClickListener(this);
-            boton3.setOnClickListener(this);
             boton11.setOnClickListener(this);
+            boton12.setOnClickListener(this);
+            boton13.setOnClickListener(this);
+            boton21.setOnClickListener(this);
             boton22.setOnClickListener(this);
+            boton23.setOnClickListener(this);
+            boton31.setOnClickListener(this);
+            boton32.setOnClickListener(this);
             boton33.setOnClickListener(this);
-            boton111.setOnClickListener(this);
-            boton222.setOnClickListener(this);
-            boton333.setOnClickListener(this);
 
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
@@ -109,62 +112,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         try {
             mpClic.start();
-            switch (v.getId()) {
-                case R.id.button1:
+            botonClic = (ImageButton) v;
+            btnc++;
+            botonContador++;
+            cambio_ic(botonClic, btnc);
 
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton1, btnc);
-                    break;
+            int resID = v.getId();
+            String nombre = getResources().getResourceEntryName(resID);
 
-                case R.id.button2:
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton2, btnc);
-                    break;
 
-                case R.id.button3:
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton3, btnc);
-                    break;
+            Toast te = Toast.makeText(getApplicationContext(), nombre, Toast.LENGTH_SHORT);
+            te.show();
 
-                case R.id.button11:
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton11, btnc);
-                    break;
-
-                case R.id.button22:
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton22, btnc);
-                    break;
-
-                case R.id.button33:
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton33, btnc);
-                    break;
-
-                case R.id.button111:
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton111, btnc);
-                    break;
-
-                case R.id.button222:
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton222, btnc);
-                    break;
-
-                case R.id.button333:
-                    btnc = btnc + 1;
-                    botonContador= botonContador+1;
-                    cambio_ic(boton333, btnc);
-                    break;
-            }
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
@@ -172,103 +131,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void cambio_ic(ImageButton btn, int btncc) {
+    protected void cambio_ic(ImageButton botonClic, int btncc) {
 
         try {
-                girarImReloj(0);
-                cronometro();
+            girarImReloj(0);
+            cronometro();
 
             if (btncc % 2 != 0) {
-
-                btn.setBackgroundResource(R.mipmap.fresa);
-                if (btn == boton1) {
-                    fruit1 = 1;
-                    boton1.setEnabled(false);
-
-                }
-                if (btn == boton2) {
-                    fruit2 = 1;
-                    boton2.setEnabled(false);
-                }
-                if (btn == boton3) {
-                    fruit3 = 1;
-                    boton3.setEnabled(false);
-                }
-
-                if (btn == boton11) {
-                    fruit11 = 1;
-                    boton11.setEnabled(false);
-                }
-                if (btn == boton22) {
-                    fruit22 = 1;
-                    boton22.setEnabled(false);
-                }
-                if (btn == boton33) {
-                    fruit33 = 1;
-                    boton33.setEnabled(false);
-                }
-
-                if (btn == boton111) {
-                    fruit111 = 1;
-                    boton111.setEnabled(false);
-                }
-                if (btn == boton222) {
-                    fruit222 = 1;
-                    boton222.setEnabled(false);
-                }
-                if (btn == boton333) {
-                    fruit333 = 1;
-                    boton333.setEnabled(false);
-                }
+                botonClic.setBackgroundResource(R.mipmap.fresa);
             } else {
-                btn.setBackgroundResource(R.mipmap.naranja);
-                if (btn == boton1) {
-                    fruit1 = 2;
-                    boton1.setEnabled(false);
-                }
-                if (btn == boton2) {
-                    fruit2 = 2;
-                    boton2.setEnabled(false);
-                }
-                if (btn == boton3) {
-                    fruit3 = 2;
-                    boton3.setEnabled(false);
-                }
-
-                if (btn == boton11) {
-                    fruit11 = 2;
-                    boton11.setEnabled(false);
-                }
-                if (btn == boton22) {
-                    fruit22 = 2;
-                    boton22.setEnabled(false);
-                }
-                if (btn == boton33) {
-                    fruit33 = 2;
-                    boton33.setEnabled(false);
-                }
-
-                if (btn == boton111) {
-                    fruit111 = 2;
-                    boton111.setEnabled(false);
-                }
-
-                if (btn == boton222) {
-                    fruit222 = 2;
-                    boton222.setEnabled(false);
-                }
-                if (btn == boton333) {
-                    fruit333 = 2;
-                    boton333.setEnabled(false);
-                }
+                botonClic.setBackgroundResource(R.mipmap.naranja);
             }
-
-            validarReglas();
+            botonClic.setEnabled(false);
+            //llenarMatriz(botonClic);
+         //   validarReglas();
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
 
         }
+    }
+
+    protected void llenarMatriz(ImageButton botonClic){
+        int fila, columna;
+
     }
 
     protected void girarImReloj(int seg) {
@@ -289,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imagenReloj.startAnimation(animation);
     }
 
-    protected void validarReglas() {
+    /*protected void validarReglas() {
         try {
             if ((fruit1 == 1 && fruit2 == 1 && fruit3 == 1)||
                     (fruit11 == 1 && fruit22 == 1 && fruit33 == 1)||
@@ -306,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 band = 1;
             }
 
-            /*Naranja*/
+
             if ((fruit1 == 2 && fruit2 == 2 && fruit3 == 2)||
                     (fruit11 == 2 && fruit22 == 2 && fruit33 == 2)||
                     (fruit111 == 2 && fruit222 == 2 && fruit333 == 2)||
@@ -316,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     (fruit1 == 2 && fruit22 == 2 && fruit333 == 2)||
                     (fruit111 == 2 && fruit22 == 2 && fruit3 == 2)){
                 conWinNaranja++;
-                //toastColor(2);
+                toastColor(2);
                 ganaste(1);
                 inhabilitarBotones();
                 band = 1;
@@ -331,23 +217,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toastColor(3);
                 inhabilitarBotones();
             }
-            /*
+
             if (btnc > 9 && band != 1) {
                 toastColor(3);
                // btnc = btnc - 2;
                 inhabilitarBotones();
             }
-            */
+
 
             if (conWinNaranja == 3 ) {
 
-                //incluir popup
+                incluir popup
                 popup("Naranja","Fresa",conWinNaranja,conWinFresa);
             }
 
             if (conWinFresa == 3 ) {
 
-                //incluir popup
+                incluir popup
                 popup("Fresa","Naranja",conWinFresa,conWinNaranja);
             }
 
@@ -356,19 +242,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
         }
-    }
+    }*/
 
     protected void inhabilitarBotones() {
         try {
-            boton1.setEnabled(false);
-            boton2.setEnabled(false);
-            boton3.setEnabled(false);
             boton11.setEnabled(false);
+            boton12.setEnabled(false);
+            boton13.setEnabled(false);
+            boton21.setEnabled(false);
             boton22.setEnabled(false);
+            boton23.setEnabled(false);
+            boton31.setEnabled(false);
+            boton32.setEnabled(false);
             boton33.setEnabled(false);
-            boton111.setEnabled(false);
-            boton222.setEnabled(false);
-            boton333.setEnabled(false);
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
@@ -380,38 +266,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
 
             mpReinicio.start();
-            boton1.setEnabled(true);
-            boton2.setEnabled(true);
-            boton3.setEnabled(true);
             boton11.setEnabled(true);
+            boton12.setEnabled(true);
+            boton13.setEnabled(true);
+            boton21.setEnabled(true);
             boton22.setEnabled(true);
+            boton23.setEnabled(true);
+            boton31.setEnabled(true);
+            boton32.setEnabled(true);
             boton33.setEnabled(true);
-            boton111.setEnabled(true);
-            boton222.setEnabled(true);
-            boton333.setEnabled(true);
 
-            boton1.setBackgroundResource(0);
-            boton2.setBackgroundResource(0);
-            boton3.setBackgroundResource(0);
             boton11.setBackgroundResource(0);
+            boton12.setBackgroundResource(0);
+            boton13.setBackgroundResource(0);
+            boton21.setBackgroundResource(0);
             boton22.setBackgroundResource(0);
+            boton23.setBackgroundResource(0);
+            boton31.setBackgroundResource(0);
+            boton32.setBackgroundResource(0);
             boton33.setBackgroundResource(0);
-            boton111.setBackgroundResource(0);
-            boton222.setBackgroundResource(0);
-            boton333.setBackgroundResource(0);
 
-            boton1.setBackgroundResource(R.drawable.stylebuttonprin);
-            boton2.setBackgroundResource(R.drawable.stylebuttonprin);
-            boton3.setBackgroundResource(R.drawable.stylebuttonprin);
             boton11.setBackgroundResource(R.drawable.stylebuttonprin);
+            boton12.setBackgroundResource(R.drawable.stylebuttonprin);
+            boton13.setBackgroundResource(R.drawable.stylebuttonprin);
+            boton21.setBackgroundResource(R.drawable.stylebuttonprin);
             boton22.setBackgroundResource(R.drawable.stylebuttonprin);
+            boton23.setBackgroundResource(R.drawable.stylebuttonprin);
+            boton31.setBackgroundResource(R.drawable.stylebuttonprin);
+            boton32.setBackgroundResource(R.drawable.stylebuttonprin);
             boton33.setBackgroundResource(R.drawable.stylebuttonprin);
-            boton111.setBackgroundResource(R.drawable.stylebuttonprin);
-            boton222.setBackgroundResource(R.drawable.stylebuttonprin);
-            boton333.setBackgroundResource(R.drawable.stylebuttonprin);
 
             btnc = 1;
-            fruit1 = 0;
+        /*    fruit1 = 0;
             fruit2 = 0;
             fruit3 = 0;
             fruit11 = 0;
@@ -419,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fruit33 = 0;
             fruit111 = 0;
             fruit222 = 0;
-            fruit333 = 0;
+            fruit333 = 0;*/
             band = 5;
             botonContador=1;
 

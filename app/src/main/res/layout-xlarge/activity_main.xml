@@ -59,7 +59,7 @@
                 android:gravity="center_horizontal">
 
                 <ImageButton
-                    android:id="@+id/button1"
+                    android:id="@+id/button11"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
                     android:background="@drawable/stylebuttonprin"/>
@@ -67,13 +67,13 @@
 
 
                 <ImageButton
-                    android:id="@+id/button2"
+                    android:id="@+id/button12"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
                     android:background="@drawable/stylebuttonprin"/>
 
                 <ImageButton
-                    android:id="@+id/button3"
+                    android:id="@+id/button13"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
                     android:background="@drawable/stylebuttonprin"/>
@@ -85,7 +85,7 @@
                 android:gravity="center_horizontal">
 
                 <ImageButton
-                    android:id="@+id/button11"
+                    android:id="@+id/button21"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
                     android:background="@drawable/stylebuttonprin"/>
@@ -97,7 +97,7 @@
                     android:background="@drawable/stylebuttonprin"/>
 
                 <ImageButton
-                    android:id="@+id/button33"
+                    android:id="@+id/button23"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
                     android:background="@drawable/stylebuttonprin"/>
@@ -110,19 +110,19 @@
                 android:gravity="center_horizontal">
 
                 <ImageButton
-                    android:id="@+id/button111"
+                    android:id="@+id/button31"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
                     android:background="@drawable/stylebuttonprin"/>
 
                 <ImageButton
-                    android:id="@+id/button222"
+                    android:id="@+id/button32"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
                     android:background="@drawable/stylebuttonprin"/>
 
                 <ImageButton
-                    android:id="@+id/button333"
+                    android:id="@+id/button33"
                     android:layout_width="86dp"
                     android:layout_height="82dp"
                     android:background="@drawable/stylebuttonprin"/>
