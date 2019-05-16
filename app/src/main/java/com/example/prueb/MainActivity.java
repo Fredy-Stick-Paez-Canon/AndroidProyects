@@ -121,8 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String nombre = getResources().getResourceEntryName(resID);
 
 
-            Toast te = Toast.makeText(getApplicationContext(), nombre, Toast.LENGTH_SHORT);
-            te.show();
+            /*Toast te = Toast.makeText(getApplicationContext(), nombre, Toast.LENGTH_SHORT);
+            te.show();*/
 
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void cambio_ic(ImageButton botonClic, int btncc) {
 
         try {
+            SuperIA myClase = new SuperIA();
+
             girarImReloj(0);
             cronometro();
 
@@ -143,8 +145,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 botonClic.setBackgroundResource(R.mipmap.naranja);
             }
             botonClic.setEnabled(false);
-            //llenarMatriz(botonClic);
-         //   validarReglas();
+
+            String gameMachine=  myClase.BuscarJugada(matGame);
+            llenarMatriz(gameMachine);
+            //validarReglas(gameMachine);
         } catch (Exception e) {
             Toast toast1 = Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
             toast1.show();
@@ -152,8 +156,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void llenarMatriz(ImageButton botonClic){
-        int fila, columna;
+    protected void llenarMatriz(String gameMachine){
+        Toast te = Toast.makeText(getApplicationContext(), gameMachine, Toast.LENGTH_SHORT);
+        te.show();
 
     }
 
