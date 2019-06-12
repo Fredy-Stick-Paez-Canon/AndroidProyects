@@ -10,18 +10,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="724dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="120dp">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
 
         <TextView
-            android:gravity="center_horizontal"
             android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="The Triqui's war"
             android:textColor="#2dccf7"
             android:textSize="50dp"
@@ -189,23 +190,21 @@
 
             <ImageButton
                 android:id="@+id/imbSalir"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:background="@drawable/stylebuttonnext"
-
                 android:textAlignment="center"
                 android:src="@android:drawable/ic_menu_revert"
-                android:layout_margin="30dp"/>
+                android:layout_margin="50dp"/>
 
             <ImageButton
                 android:id="@+id/imbReiniciar"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:background="@drawable/stylebuttonnext"
-
                 android:textAlignment="center"
                 android:src="@android:drawable/ic_popup_sync"
-                android:layout_margin="30dp"/>
+                android:layout_margin="50dp"/>
 
 
         </TableRow>

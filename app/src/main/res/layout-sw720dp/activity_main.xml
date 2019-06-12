@@ -19,11 +19,11 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="230dp"
-            android:layout_height="47dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="The Triqui's war"
             android:textColor="#2dccf7"
-            android:textSize="32dp"
+            android:textSize="50dp"
             android:textStyle="bold|italic"
 
             tools:layout_editor_absoluteX="82dp"
@@ -31,12 +31,12 @@
 
         <TextView
             android:id="@+id/crono"
-            android:layout_width="225dp"
-            android:layout_height="33dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="10:00:00"
             android:textAlignment="center"
             android:textColor="#35ea63"
-            android:textSize="28sp"
+            android:textSize="50sp"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="96dp" />
 
@@ -155,24 +155,23 @@
                     android:id="@+id/conta1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:text="0"
                     android:textAlignment="center"
-                    android:textSize="30sp" />
+                    android:textSize="40sp" />
 
                 <ImageView
                     android:id="@+id/reloj"
                     android:layout_width="10dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     app:srcCompat="@mipmap/relojarena" />
 
                 <TextView
                     android:id="@+id/conta2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2"
+                    android:text="0"
                     android:textAlignment="center"
-                    android:textSize="30sp" />
+                    android:textSize="40sp" />
 
             </TableRow>
 
@@ -187,18 +186,17 @@
             <ImageButton
                 android:id="@+id/imbSalir"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="150dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
                 android:background="@drawable/stylebuttonnext"
-
                 android:src="@android:drawable/ic_menu_revert"
                 android:textAlignment="center" />
 
             <ImageButton
                 android:id="@+id/imbReiniciar"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="150dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
                 android:background="@drawable/stylebuttonnext"

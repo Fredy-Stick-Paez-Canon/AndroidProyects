@@ -7,7 +7,7 @@ public class SuperIA {
 
 
     int numpPosibilidades;
-    int conTtrue = 0;
+    int conCeros = 0;
     String posJujar;
     Vector<String> posiciones;
     Random ran;
@@ -18,26 +18,22 @@ public class SuperIA {
    // }
 
 
-    public String buscarJugada(boolean[][] matriz, int numeroTurno) {
+    public String buscarJugada(int[][] matriz, int numeroTurno) {
+
             ran = new Random();
             posiciones = new Vector();
             numpPosibilidades=0;
+
             for (int i = 0; i < (matriz.length); i++) {
                 for (int j = 0; j < matriz.length; j++) {
-                    if (true == matriz[i][j]) {
-                        conTtrue++;
-                    } else {
+                    if (0 == matriz[i][j]) {
                         posiciones.addElement(""+i+j);
                         numpPosibilidades++;
                     }
                 }
             }
 
-        if (posiciones.size() > 0) {
-        }
-        else{
-            posJujar = "se jodio";
-        }
+            posJujar = posiciones.elementAt((int) (Math.random() * posiciones.size()));
 
         return "button" + posJujar;
     }
