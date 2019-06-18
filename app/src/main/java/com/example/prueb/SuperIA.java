@@ -20,7 +20,6 @@ public class SuperIA {
 
     public String buscarJugada(int[][] matriz, int numeroTurno) {
 
-            ran = new Random();
             posiciones = new Vector();
             numpPosibilidades=0;
 

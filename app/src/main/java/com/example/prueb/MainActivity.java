@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.*;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,6 +39,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+
+            VideoView videoview = (VideoView)findViewById(R.id.videoFondo);
+
+            Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.fondopringame);
+            //videoview.setMediaController((new MediaController(this)));
+            videoview.setVideoURI(uri);
+            videoview.start();
 
             matGame = new int[3][3];
             boton00 = findViewById(R.id.button00);
@@ -77,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton22.setOnClickListener(this);
 
             do{
-                nombreFruta1 = "im" + Math.random() + 1 * 6;
-                nombreFruta2 = "im" + Math.random() + 1 * 6;
+                nombreFruta1 = "im" +(int) (Math.random() + 1) * 6;
+                nombreFruta2 = "im" + (int)(Math.random() + 1) * 6;
                 Toast.makeText(getApplicationContext(),"Fruta1: " + nombreFruta1 + "\nFruta2: " + nombreFruta2, Toast.LENGTH_SHORT).show();
             }while(nombreFruta1 == nombreFruta2);
 
@@ -105,31 +113,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             resID1 = getResources().getIdentifier(nombreBoton, "id", getPackageName());
             validarReglas();
             btnc++;
-            if (band != 1) {
-                hilos();
+            /*if (band != 1) {
+                jugarIA();
               //  validarReglas();
-            }
-/*--------------------------------------------------------------------------------------------------------*/
-            /*if(btnc > 2 && btnc < 9) {
-                SuperIA oSIA = new SuperIA();
-                nombreBoton = oSIA.buscarJugada(matGame, btnc);
-                //wait(200);
-                llenarMatriz(nombreBoton, btnc);
-                resID1 = getResources().getIdentifier(nombreBoton, "id", getPackageName());
-                validarReglas();
-
-                int time = 0;
-
-                hilos();
-
-                botonClic = (ImageButton) findViewById(resID1);
-                cambio_ic(botonClic, btnc);
-
-                Toast te = Toast.makeText(getApplicationContext(), "Pos a Jugar: " + nombreBoton + "\nContador " + btnc, Toast.LENGTH_SHORT);
-                te.show();
             }*/
-/*--------------------------------------------------------------------------------------------------------*/
-
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
@@ -142,9 +129,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             cronometro();
 
             if (btncc % 2 != 0) {
-                botonClic.setBackgroundResource(R.mipmap.im2);
+                botonClic.setBackgroundResource(R.mipmap.im02);
             } else {
-                botonClic.setBackgroundResource((R.mipmap.im5));
+                botonClic.setBackgroundResource(R.mipmap.im03);
             }
             botonClic.setEnabled(false);
 
@@ -473,7 +460,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //girarCrono(2);
 
         if(!isRunning) {
-            cdt = new CountDownTimer(10000, 1000) {
+            cdt = new CountDownTimer(11000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
 
@@ -492,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onFinish() {
                     btnc++;
                     toastColor(4);
-                    hilos();
+                    /*jugarIA();*/
                 }
             }.start();
             isRunning = true;
@@ -565,17 +552,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mpFondo.pause();
     }
 
-    void hilos(){
+    void jugarIA(){
         new Thread(new Runnable() {
             @Override
             public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             if (btnc % 2 == 0 && btnc <= 8) {
                                 int a = 0;
-                                Thread.sleep(1000);
                                 SuperIA oSIA = new SuperIA();
                                 nombreBoton = oSIA.buscarJugada(matGame, btnc);
                                 //wait(200);
