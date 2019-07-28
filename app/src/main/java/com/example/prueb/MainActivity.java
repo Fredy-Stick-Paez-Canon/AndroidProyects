@@ -13,6 +13,7 @@ import android.widget.*;
 import com.github.johnpersano.supertoasts.library.*;
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.plattysoft.leonids.ParticleSystem;
+import android.os.Vibrator;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,18 +35,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MediaPlayer mpClic;
     private MediaPlayer mpReinicio;
     private MediaPlayer mpFondo;
+    Vibrator vibraWinner;
 
     protected void onCreate(Bundle savedInstanceState) {
         try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            VideoView videoview = (VideoView)findViewById(R.id.videoFondo);
+            //VideoView videoview = (VideoView)findViewById(R.id.videoFondo);
 
             Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.fondopringame);
             //videoview.setMediaController((new MediaController(this)));
-            videoview.setVideoURI(uri);
-            videoview.start();
+            //videoview.setVideoURI(uri);
+            //videoview.start();
+
 
             matGame = new int[3][3];
             boton00 = findViewById(R.id.button00);
@@ -113,10 +116,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             resID1 = getResources().getIdentifier(nombreBoton, "id", getPackageName());
             validarReglas();
             btnc++;
-            /*if (band != 1) {
+            if (band != 1) {
                 jugarIA();
-              //  validarReglas();
-            }*/
+                validarReglas();
+            }
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
         }
@@ -528,6 +531,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .oneShot(findViewById(resID1), 80);
 
         }
+
+        vibraWinner = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibraWinner.vibrate(500);
+
     }
 
     @Override
