@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.*;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.*;
 import android.widget.*;
@@ -42,13 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            //VideoView videoview = (VideoView)findViewById(R.id.videoFondo);
+            VideoView videoview = (VideoView)findViewById(R.id.videoFondo);
 
             Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.fondopringame);
-            //videoview.setMediaController((new MediaController(this)));
-            //videoview.setVideoURI(uri);
-            //videoview.start();
-
+            videoview.setVideoURI(uri);
+            videoview.setMinimumHeight(4300);
+            videoview.start();
 
             matGame = new int[3][3];
             boton00 = findViewById(R.id.button00);
@@ -601,4 +601,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }).start();
     }
+
 }
