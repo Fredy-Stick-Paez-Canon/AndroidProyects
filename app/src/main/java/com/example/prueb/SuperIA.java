@@ -10,7 +10,6 @@ public class SuperIA {
     int conCeros = 0;
     String posJujar;
     Vector<String> posiciones;
-    Random ran;
 
   //  SuperIA(int matriz[][]) {
   //      this.matriz = matriz;

@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.*;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.*;
 import android.widget.*;
@@ -15,16 +13,20 @@ import com.github.johnpersano.supertoasts.library.*;
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.plattysoft.leonids.ParticleSystem;
 import android.os.Vibrator;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView conPlayer1, conPlayer2,txvCronometro;
 
-    int btnc = 1,band = 0, conWinFresa = 0, conWinNaranja = 0,botonContador=1,matGame[][], numFreGame = 0,numNarGame = 0, resID1, resIdFruta1, resIdFruta2;
+    public int shiftCounter = 1,band = 0, conWinFresa = 0, conWinNaranja = 0,botonContador=1,arrayGame[][], numFreGame = 0,numNarGame = 0, resID1, resIdFruta1, resIdFruta2, numberSpaces = 0;
+
 
     String nombreBoton, nombreFruta1, nombreFruta2;
 
     boolean isRunning = false;
+
+    ImageView viewFruta1, viewFruta2, imageBackground;
 
     public int counter=0;
     ImageButton boton00, boton01, boton02, boton10, boton11, boton12, boton20, boton21, boton22, botonClic;
@@ -43,14 +45,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            VideoView videoview = (VideoView)findViewById(R.id.videoFondo);
 
-            Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.fondopringame);
-            videoview.setVideoURI(uri);
-            videoview.setMinimumHeight(4300);
+            /*Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.fondopringame);
+            imageBackground.setVideoURI(uri);
+            videoview.setMinimumHeight(1000000);
+            videoview.requestFocus();
             videoview.start();
 
-            matGame = new int[3][3];
+            videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.setLooping(true);
+                }
+            });*/
+
+            arrayGame = new int[3][3];
             boton00 = findViewById(R.id.button00);
             boton01 = findViewById(R.id.button01);
             boton02 = findViewById(R.id.button02);
@@ -64,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             conPlayer1 = findViewById(R.id.conta1);
             conPlayer2 = findViewById(R.id.conta2);
             txvCronometro = findViewById(R.id.crono);
+            viewFruta1 = findViewById(R.id.imvFruta1);
+            viewFruta2 = findViewById(R.id.imvFruta2);
 
             mpClic = MediaPlayer.create(this, R.raw.clic);
             mpReinicio = MediaPlayer.create(this, R.raw.reinicio);
@@ -88,17 +99,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton22.setOnClickListener(this);
 
             do{
-                nombreFruta1 = "im" +(int) (Math.random() + 1) * 6;
-                nombreFruta2 = "im" + (int)(Math.random() + 1) * 6;
-                Toast.makeText(getApplicationContext(),"Fruta1: " + nombreFruta1 + "\nFruta2: " + nombreFruta2, Toast.LENGTH_SHORT).show();
-            }while(nombreFruta1 == nombreFruta2);
+                Random ran = new Random();
+                ran.nextInt();
+                nombreFruta1 = "im" + ran.nextInt(9);
+                nombreFruta2 = "im" + ran.nextInt(9);
+            }while(nombreFruta1.equals(nombreFruta2));
 
             resIdFruta1 = getResources().getIdentifier(nombreFruta1, "mipmap", getPackageName());
             resIdFruta2 = getResources().getIdentifier(nombreFruta2, "mipmap", getPackageName());
 
+            Toast.makeText(this,"Nombre1: " + nombreFruta1 + "\nNombre2: " + nombreFruta2,Toast.LENGTH_SHORT).show();
+
+            viewFruta1.setImageResource(resIdFruta1);
+            viewFruta2.setImageResource(resIdFruta2);
 
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -108,15 +124,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mpClic.start();
             botonClic = (ImageButton) v;
             botonContador++;
-            cambio_ic(botonClic, btnc);
+            cambio_ic(botonClic, shiftCounter);
 
             int resID = v.getId();
             nombreBoton = getResources().getResourceEntryName(resID);
-            llenarMatriz(nombreBoton,btnc);
+            llenarMatriz(nombreBoton,shiftCounter);
             resID1 = getResources().getIdentifier(nombreBoton, "id", getPackageName());
+            shiftCounter++;
+            numberSpaces = 0;
+            checkSpacesGame();
             validarReglas();
-            btnc++;
-            if (band != 1) {
+            if (band != 1 && numberSpaces > 0) {
+                disableButtons();
                 jugarIA();
                 validarReglas();
             }
@@ -125,16 +144,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void cambio_ic(ImageButton botonClic, int btncc) {
+    private void cambio_ic(ImageButton botonClic, int shiftCounter) {
 
         try {
             girarImReloj(0);
-            cronometro();
+            if(band == 1){
+                isRunning = false;
+                cdt.cancel();
+            }else {
+                cronometro();
+            }
 
-            if (btncc % 2 != 0) {
-                botonClic.setBackgroundResource(R.mipmap.im02);
+            if (shiftCounter % 2 != 0) {
+                botonClic.setBackgroundResource(resIdFruta1);
             } else {
-                botonClic.setBackgroundResource(R.mipmap.im03);
+                botonClic.setBackgroundResource(resIdFruta2);
             }
             botonClic.setEnabled(false);
 
@@ -144,14 +168,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    protected void llenarMatriz(String posicionJugar, int btnc){
+    protected void llenarMatriz(String posicionJugar, int shiftCounter){
         int fila = Integer.valueOf(posicionJugar.substring(6,7));//button33
         int columna = Integer.valueOf(posicionJugar.substring(7,8));
 
-        if (btnc % 2 != 0) {
-            matGame [fila][columna] = 1;
+        if (shiftCounter % 2 != 0) {
+            arrayGame [fila][columna] = 1;
         } else {
-            matGame[fila][columna] = 2;
+            arrayGame[fila][columna] = 2;
         }
     }
 
@@ -163,8 +187,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 
-        if (seg <= 5 && seg != 0)
-            animation.setDuration(900);
+        if (seg <= 3 && seg != 0)
+            animation.setDuration(500);
         else
             animation.setDuration(2000);
 
@@ -191,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             conPlayer1.setText(String.valueOf(conWinFresa));
             conPlayer2.setText(String.valueOf(conWinNaranja));
 
-            if ((botonContador > 9 && band != 1)||(btnc > 9 && band != 1)){
+            if (band != 1 && numberSpaces <= 0){
                 toastColor(3);
                 inhabilitarBotones();
             }
@@ -213,12 +237,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void validarHorizontales() {
         try {
-            for (int i = 0; i < matGame.length; i++) {
-                for (int j = 0; j < matGame.length; j++) {
+            for (int i = 0; i < arrayGame.length; i++) {
+                for (int j = 0; j < arrayGame.length; j++) {
 
-                    if (matGame[i][j] == 1) {
+                    if (arrayGame[i][j] == 1) {
                         numFreGame++;
-                    } else if (matGame[i][j] == 2) {
+                    } else if (arrayGame[i][j] == 2) {
                         numNarGame++;
                     }
                 }
@@ -238,12 +262,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void validarVerticales(){
         try {
-            for (int j = 0; j < matGame.length; j++) {
-                for (int i = 0; i < matGame.length; i++) {
+            for (int j = 0; j < arrayGame.length; j++) {
+                for (int i = 0; i < arrayGame.length; i++) {
 
-                    if (matGame[i][j] == 1) {
+                    if (arrayGame[i][j] == 1) {
                         numFreGame++;
-                    } else if (matGame[i][j] == 2) {
+                    } else if (arrayGame[i][j] == 2) {
                         numNarGame++;
                     }
                 }
@@ -264,10 +288,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void validarDiagonales(){
         try {
-            for (int i = 0; i < matGame.length; i++) {
-                if (matGame[i][i] == 1) {
+            for (int i = 0; i < arrayGame.length; i++) {
+                if (arrayGame[i][i] == 1) {
                     numFreGame++;
-                } else if (matGame[i][i] == 2) {
+                } else if (arrayGame[i][i] == 2) {
                     numNarGame++;
                 }
             }
@@ -280,12 +304,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numNarGame = 0;
             }
 
-            int j = matGame.length-1;
+            int j = arrayGame.length-1;
 
-            for(int i = 0; i < matGame.length; i++){
-                if (matGame[i][j] == 1) {
+            for(int i = 0; i < arrayGame.length; i++){
+                if (arrayGame[i][j] == 1) {
                     numFreGame++;
-                } else if (matGame[i][j] == 2) {
+                } else if (arrayGame[i][j] == 2) {
                     numNarGame++;
                 }
                 j--;
@@ -320,8 +344,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 inhabilitarBotones();
             }
 
-            numFreGame = 0;
-            numNarGame = 0;
+            /*numFreGame = 0;
+            numNarGame = 0;*/
 
         }catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -341,7 +365,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton22.setEnabled(false);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
-
         }
     }
 
@@ -379,14 +402,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton21.setBackgroundResource(R.drawable.stylebuttonprin);
             boton22.setBackgroundResource(R.drawable.stylebuttonprin);
 
-            btnc = 1;
-            matGame = new int[3][3];
-            band = 5;
+            shiftCounter = 1;
+            arrayGame = new int[3][3];
+            band = 0;
             botonContador=1;
+            cdt.cancel();
 
-        //    cdt.cancel();
-            txvCronometro.setText("10");
-            txvCronometro.setTextColor(Color.rgb(53,234,99));
+            //cdt.cancel();
+            txvCronometro.setText("5");
+            txvCronometro.setTextColor(R.string.number_colors);
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
@@ -407,9 +431,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 conPlayer2.setText("0");
                                 conWinNaranja =0;
                                 conWinFresa =0;
-                                txvCronometro.setTextColor(Color.rgb(53,234,99));
+                                txvCronometro.setTextColor(R.string.number_colors);
+                                txvCronometro.setText("5");
                                 cdt.cancel();
-                                txvCronometro.setText("10");
                             }
                         });
 
@@ -419,51 +443,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void toastColor(int color){
 
-        if(color ==2){
-            SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
+        SuperActivityToast toastPoint;
 
-                    .setText("Punto para Naranja")
-                    .setDuration(Style.DURATION_SHORT)
-                    .setFrame(Style.FRAME_KITKAT)
-                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_ORANGE))
-                    .setAnimations(Style.ANIMATIONS_POP).show();
+        if(color == 4){
+            toastPoint = new SuperActivityToast(this, new Style(), Style.TYPE_PROGRESS_BAR);
+        }else{
+             toastPoint = new SuperActivityToast(this, new Style(), Style.TYPE_STANDARD);
         }
 
-        if(color==1){
-            SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
-                    .setText("Punto para Fresa")
-                    .setDuration(Style.DURATION_SHORT)
-                    .setFrame(Style.FRAME_KITKAT)
-                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED))
-                    .setAnimations(Style.ANIMATIONS_POP).show();
+        toastPoint
+            .setDuration(Style.DURATION_SHORT)
+            .setFrame(Style.FRAME_KITKAT)
+            .setAnimations(Style.ANIMATIONS_FLY);
+
+        switch(color){
+            case 1:
+                toastPoint.setText("Punto Jugador " + color)
+                   .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED)).show();
+                break;
+            case 2:
+                toastPoint
+                   .setText("Punto Jugador " + color)
+                   .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_ORANGE)).show();
+                break;
+            case 3:
+                toastPoint
+                   .setText("Empate")
+                   .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE)).show();
+                cdt.cancel();
+                break;
+            case 4:
+                toastPoint
+                   .setText("Pierdes Turno")
+                   .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_LIME)).show();
+                if (band != 1 && numberSpaces > 0) {
+                    jugarIA();
+                }
+                break;
         }
 
-        if(color==3){
-            SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
-                    .setText("Empate")
-                    .setDuration(Style.DURATION_MEDIUM)
-                    .setFrame(Style.FRAME_KITKAT)
-                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE))
-                    .setAnimations(Style.ANIMATIONS_POP).show();
-        }
-
-        if(color==4){
-            SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
-                    .setText("Siguiente Turno")
-                    .setDuration(Style.DURATION_MEDIUM)
-                    .setFrame(Style.FRAME_KITKAT)
-                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_INDIGO))
-                    .setAnimations(Style.ANIMATIONS_POP).show();
-
-        }
+        isRunning = false;
+        cdt.cancel();
     }
 
     public void cronometro(){
-        txvCronometro.setTextColor(Color.rgb(53,234,99));
-        //girarCrono(2);
+        txvCronometro.setTextColor(R.string.number_colors);
 
         if(!isRunning) {
-            cdt = new CountDownTimer(11000, 1000) {
+            cdt = new CountDownTimer(6000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
 
@@ -471,22 +498,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     min = millisUntilFinished / 1000;
 
                     if(min==3){
-                        txvCronometro.setTextColor(Color.rgb(255, 0, 0));
-                        //girarCrono(1);
+                        txvCronometro.setTextColor(Color.RED);
                     }
-                    if(min <= 5){
+                    if(min <= 3){
                         girarImReloj((int)min);
                     }
                 }
 
                 public void onFinish() {
-                    btnc++;
+                    shiftCounter++;
                     toastColor(4);
-                    /*jugarIA();*/
                 }
             }.start();
             isRunning = true;
-        }else if(min!=10){
+        }else if(min!=5){
             cdt.cancel();
             cdt.start();
         }
@@ -529,7 +554,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .setSpeedRange(0.2f, 0.5f)
                     .setRotationSpeed(144)
                     .oneShot(findViewById(resID1), 80);
-
         }
 
         vibraWinner = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -543,6 +567,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(mpFondo.isPlaying()){
             mpFondo.stop();
+            cdt.cancel();
             mpFondo.release();
         }
     }
@@ -557,6 +582,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause(){
         super.onPause();
         mpFondo.pause();
+        cdt.cancel();
     }
 
     void jugarIA(){
@@ -572,29 +598,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
                         try {
-                            if (btnc % 2 == 0 && btnc <= 8) {
-                                int a = 0;
+                            Toast.makeText(getApplicationContext(),"fdfgd",Toast.LENGTH_SHORT).show();
+
+                            if (numberSpaces > 0) {
                                 SuperIA oSIA = new SuperIA();
-                                nombreBoton = oSIA.buscarJugada(matGame, btnc);
+                                nombreBoton = oSIA.buscarJugada(arrayGame, shiftCounter);
                                 //wait(200);
-                                llenarMatriz(nombreBoton, btnc);
+                                llenarMatriz(nombreBoton, shiftCounter);
                                 resID1 = getResources().getIdentifier(nombreBoton, "id", getPackageName());
                                 mpClic.start();
                                 validarReglas();
 
                                 botonClic = (ImageButton) findViewById(resID1);
-                                cambio_ic(botonClic, btnc);
+                                cambio_ic(botonClic, shiftCounter);
 
-                                Toast te = Toast.makeText(getApplicationContext(), "Pos a Jugar: " + nombreBoton + "\nContador " + btnc, Toast.LENGTH_SHORT);
-                                te.show();
+                                checkSpacesGame();
+                                if(numberSpaces == 0 && band != 1){
+                                    toastColor(3);
+                                }
 
-                                btnc++;
+                                //Toast.makeText(getApplicationContext(), "Pos a Jugar: " + nombreBoton + "\nContador " + shiftCounter, Toast.LENGTH_SHORT).show();
+                                shiftCounter++;
+                                enabledButtonsAviables();
                             }
                         }catch (Exception e){
                             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT).show();
                         }
-                        Toast sss = Toast.makeText(getApplicationContext(), "Hilo finalizado", Toast.LENGTH_SHORT);
-                        sss.show();
                     }
                 });
 
@@ -602,4 +631,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }).start();
     }
 
+    public void checkSpacesGame(){
+
+        numberSpaces = 0;
+
+        for(int i = 0; i < arrayGame.length; i++){
+            if(numberSpaces <= 0){
+                for (int j = 0; j < arrayGame.length; j++) {
+                    if(arrayGame[i][j] != 1 && arrayGame[i][j] != 2){
+                        numberSpaces++;
+                    }
+                }
+            }
+        }
+    }
+
+    public void disableButtons(){
+        boton00.setEnabled(false);
+        boton01.setEnabled(false);
+        boton02.setEnabled(false);
+        boton10.setEnabled(false);
+        boton11.setEnabled(false);
+        boton12.setEnabled(false);
+        boton20.setEnabled(false);
+        boton21.setEnabled(false);
+        boton22.setEnabled(false);
+    }
+
+    public void enabledButtonsAviables(){
+        int nameButton;
+        ImageButton buttonAux1;
+        String buttonId;
+
+        for(int i = 0; i < arrayGame.length; i++){
+            for(int j = 0; j < arrayGame.length; j++){
+                if (0 == arrayGame[i][j]) {
+                    buttonId = "button"+i+j;
+                    nameButton = getResources().getIdentifier(buttonId, "id", getPackageName());
+                    buttonAux1 = findViewById(nameButton);
+                    buttonAux1.setEnabled(true);
+                }
+            }
+
+
+        }
+    }
 }
