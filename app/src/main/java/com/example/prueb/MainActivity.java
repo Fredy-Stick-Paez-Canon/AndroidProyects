@@ -1,5 +1,6 @@
 package com.example.prueb;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -13,13 +14,28 @@ import com.github.johnpersano.supertoasts.library.*;
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.plattysoft.leonids.ParticleSystem;
 import android.os.Vibrator;
-import java.util.Random;
+
+import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView conPlayer1, conPlayer2,txvCronometro;
 
-    public int shiftCounter = 1,band = 0, conWinFresa = 0, conWinNaranja = 0,botonContador=1,arrayGame[][], numFreGame = 0,numNarGame = 0, resID1, resIdFruta1, resIdFruta2, numberSpaces = 0 , resMpBackground;
+    private int shiftCounter = 1;
+    public int band = 0;
+    public int conWinFresa = 0;
+    public int conWinNaranja = 0;
+    public int botonContador=1;
+    private int[][] arrayGame;
+    public int numFreGame = 0;
+    public int numNarGame = 0;
+    public int resID1;
+    public int resIdFruta1;
+    public int resIdFruta2;
+    public int numberSpaces = 0;
+    public int resMpBackground;
+    public int fruit1color;
+    public int fruit2color;
 
     float mpVolMax = (float)0.3;
 
@@ -29,9 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ImageView viewFruta1, viewFruta2, imagenReloj;
 
-    public int counter=0;
     ImageButton boton00, boton01, boton02, boton10, boton11, boton12, boton20, boton21, boton22, botonClic;
-    ImageButton reini, back;
+    ImageButton reini;
 
     CountDownTimer cdt;
     long min =0;
@@ -47,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            arrayGame = new int[3][3];
+            setArrayGame(new int[3][3]);
             boton00 = findViewById(R.id.button00);
             boton01 = findViewById(R.id.button01);
             boton02 = findViewById(R.id.button02);
@@ -69,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             mpReinicio = MediaPlayer.create(this, R.raw.reinicio);
             mpReinicio.setVolume(mpVolMax,(mpVolMax));
+
+            mpFlash = MediaPlayer.create(this,  R.raw.flash);
+            mpFlash.setVolume(mpVolMax,(mpVolMax));
 
             nameMpBackground = "background" + (int) (Math.random() * 3);
             Toast.makeText(getApplicationContext(),nameMpBackground,Toast.LENGTH_SHORT).show();
@@ -95,8 +113,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton22.setOnClickListener(this);
 
             do{
-                nombreFruta1 = "im" + (int) (Math.random() * 9);
-                nombreFruta2 = "im" + (int) (Math.random() * 9);
+                fruit1color = (int)(Math.random() * 25);
+                fruit2color = (int)(Math.random() * 25);
+
+                nombreFruta1 = "im" + fruit1color;
+                nombreFruta2 = "im" + fruit2color;
             }while(nombreFruta1.equals(nombreFruta2));
 
             resIdFruta1 = getResources().getIdentifier(nombreFruta1, "mipmap", getPackageName());
@@ -113,17 +134,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         try {
-            girarImReloj(0);
+            isRoting=false;
+            girarImReloj();
             mpClic.start();
             botonClic = (ImageButton) v;
             botonContador++;
-            changeIcon(botonClic, shiftCounter);
+            changeIcon(botonClic, getShiftCounter());
 
             int resID = v.getId();
             nombreBoton = getResources().getResourceEntryName(resID);
-            llenarMatriz(nombreBoton,shiftCounter);
+            llenarMatriz(nombreBoton, getShiftCounter());
             resID1 = getResources().getIdentifier(nombreBoton, "id", getPackageName());
-            shiftCounter++;
+            setShiftCounter(getShiftCounter() + 1);
             numberSpaces = 0;
             checkSpacesGame();
             validarReglas();
@@ -165,17 +187,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int columna = Integer.valueOf(posicionJugar.substring(7,8));
 
         if (shiftCounter % 2 != 0) {
-            arrayGame [fila][columna] = 1;
+            getArrayGame()[fila][columna] = 1;
         } else {
-            arrayGame[fila][columna] = 2;
+            getArrayGame()[fila][columna] = 2;
         }
     }
 
-    protected void girarImReloj(int seg) {
+    protected void girarImReloj() {
 
         imagenReloj = findViewById(R.id.reloj);
 
-        Animation animation = null;
+        Animation animation;
 
         if(!isRoting) {
 
@@ -238,12 +260,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void validarHorizontales() {
         try {
-            for (int i = 0; i < arrayGame.length; i++) {
-                for (int j = 0; j < arrayGame.length; j++) {
+            for (int[] ints : getArrayGame()) {
+                for (int j = 0; j < getArrayGame().length; j++) {
 
-                    if (arrayGame[i][j] == 1) {
+                    if (ints[j] == 1) {
                         numFreGame++;
-                    } else if (arrayGame[i][j] == 2) {
+                    } else if (ints[j] == 2) {
                         numNarGame++;
                     }
                 }
@@ -263,12 +285,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void validarVerticales(){
         try {
-            for (int j = 0; j < arrayGame.length; j++) {
-                for (int i = 0; i < arrayGame.length; i++) {
+            for (int j = 0; j < getArrayGame().length; j++) {
+                for (int i = 0; i < getArrayGame().length; i++) {
 
-                    if (arrayGame[i][j] == 1) {
+                    if (getArrayGame()[i][j] == 1) {
                         numFreGame++;
-                    } else if (arrayGame[i][j] == 2) {
+                    } else if (getArrayGame()[i][j] == 2) {
                         numNarGame++;
                     }
                 }
@@ -289,10 +311,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void validarDiagonales(){
         try {
-            for (int i = 0; i < arrayGame.length; i++) {
-                if (arrayGame[i][i] == 1) {
+            for (int i = 0; i < getArrayGame().length; i++) {
+                if (getArrayGame()[i][i] == 1) {
                     numFreGame++;
-                } else if (arrayGame[i][i] == 2) {
+                } else if (getArrayGame()[i][i] == 2) {
                     numNarGame++;
                 }
             }
@@ -305,12 +327,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 numNarGame = 0;
             }
 
-            int j = arrayGame.length-1;
+            int j = getArrayGame().length-1;
 
-            for(int i = 0; i < arrayGame.length; i++){
-                if (arrayGame[i][j] == 1) {
+            for(int i = 0; i < getArrayGame().length; i++){
+                if (getArrayGame()[i][j] == 1) {
                     numFreGame++;
-                } else if (arrayGame[i][j] == 2) {
+                } else if (getArrayGame()[i][j] == 2) {
                     numNarGame++;
                 }
                 j--;
@@ -318,7 +340,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (numFreGame >= 3 || numNarGame >= 3) {
                 winValidate();
-                return;
             } else {
                 numFreGame = 0;
                 numNarGame = 0;
@@ -331,14 +352,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void winValidate(){
         try{
             if(numFreGame == 3){
-                ganaste(2, resID1);
+                ganaste(fruit1color, resID1);
                 toastColor(1);
                 band = 1;
                 conWinFresa++;
                 inhabilitarBotones();
             }
             else if(numNarGame == 3){
-                ganaste(1, resID1);
+                ganaste(fruit2color, resID1);
                 toastColor(2);
                 band = 1;
                 conWinNaranja++;
@@ -366,6 +387,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @SuppressLint("ShowToast")
     protected void habilitarJuego() {
         try {
 
@@ -400,21 +422,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boton21.setBackgroundResource(R.drawable.stylebuttonprin);
             boton22.setBackgroundResource(R.drawable.stylebuttonprin);
 
-            shiftCounter = 1;
-            arrayGame = new int[3][3];
+            setShiftCounter(1);
+            setArrayGame(new int[3][3]);
             band = 0;
             botonContador=1;
             cdt.cancel();
 
             //cdt.cancel();
-            txvCronometro.setText("5");
-            txvCronometro.setTextColor(R.string.number_colors);
+            txvCronometro.setText("3");
+            txvCronometro.setTextColor(Color.WHITE);
 
-            isRoting = false;
+            isRoting = true;
+            girarImReloj();
             //===================================================== P
             mpBackgroun.stop();
 
-            Random ran = new Random();
             nameMpBackground = "background" + (int) (Math.random() * 3);
             Toast.makeText(getApplicationContext(),nameMpBackground,Toast.LENGTH_SHORT).show();
             resMpBackground = getResources().getIdentifier(nameMpBackground, "raw", getPackageName());
@@ -424,9 +446,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mpBackgroun.start();
 
             do{
-                ran = new Random();
-                nombreFruta1 = "im" + (int) (Math.random() * 9);
-                nombreFruta2 = "im" + (int) (Math.random() * 9);
+                fruit1color = (int)(Math.random() * 25);
+                fruit2color = (int)(Math.random() * 25);
+
+                nombreFruta1 = "im" + fruit1color;
+                nombreFruta2 = "im" + fruit2color;
             }while(nombreFruta1.equals(nombreFruta2));
 
             resIdFruta1 = getResources().getIdentifier(nombreFruta1, "mipmap", getPackageName());
@@ -434,7 +458,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             viewFruta1.setImageResource(resIdFruta1);
             viewFruta2.setImageResource(resIdFruta2);
-
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error: " + e, Toast.LENGTH_SHORT);
@@ -455,8 +478,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 conPlayer2.setText("0");
                                 conWinNaranja =0;
                                 conWinFresa =0;
-                                txvCronometro.setTextColor(R.string.number_colors);
-                                txvCronometro.setText("5");
+                                txvCronometro.setTextColor(Color.WHITE);
+                                txvCronometro.setText("3");
                                 cdt.cancel();
                             }
                         });
@@ -500,6 +523,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toastPoint
                    .setText("Pierdes Turno")
                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_LIME)).show();
+                mpFlash.start();
+
                 if (band != 1 && numberSpaces > 0) {
                     playIA();
                 }
@@ -511,17 +536,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void cronometro(){
-        txvCronometro.setTextColor(R.string.number_colors);
+        txvCronometro.setTextColor(Color.WHITE);
 
         if(!isRunning) {
-            cdt = new CountDownTimer(6000, 1000) {
+            cdt = new CountDownTimer(3000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
 
-                    txvCronometro.setText("" + millisUntilFinished / 1100);
                     min = millisUntilFinished / 1000;
+                    txvCronometro.setText(""+min);
 
-                    if(min==3){
+
+                    if(min==1){
                         txvCronometro.setTextColor(Color.RED);
                     }
                     /*if(min <= 3){
@@ -530,7 +556,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 public void onFinish() {
-                    shiftCounter++;
+                    setShiftCounter(getShiftCounter() + 1);
                     toastColor(4);
                 }
             }.start();
@@ -541,46 +567,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void ganaste(int winner, int resID1) {
+    protected void ganaste(int fruitWinner, int resID1) {
+        cdt.cancel();
+        Vector<ParticleSystem> arrayParticleSystem = new Vector<>();
+        ParticleSystem oParticleSystem = null;
 
-        if (winner==2) {
-
-            new ParticleSystem(this, 150, R.drawable.ic_confe1, 10000)
-                    .setSpeedRange(0.2f, 0.5f)
-                    .setRotationSpeed(144)
-                    .oneShot(findViewById(resID1), 80);
-
-            new ParticleSystem(this, 80, R.drawable.ic_bola, 10000)
-                    .setSpeedRange(0.2f, 0.5f)
-                    .setRotationSpeed(144)
-                    .oneShot(findViewById(resID1), 80);
-
-            new ParticleSystem(this, 80, R.drawable.ic_star, 10000)
-                    .setSpeedRange(0.2f, 0.5f)
-                    .setRotationSpeed(144)
-                    .oneShot(findViewById(resID1), 80);
-
+        if(fruitWinner >= 0 && fruitWinner < 5){
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_yellow_star, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_yellow_ball, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_yellow_confe, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+        }else if(fruitWinner >= 5 && fruitWinner < 10){
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_red_star, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_red_ball, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_red_confe, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+        }else if(fruitWinner >= 9 && fruitWinner < 15){
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_green_star, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_green_ball, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_green_confe, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+        }else if(fruitWinner >= 14 && fruitWinner < 20){
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_orange_star, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_orange_ball, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_orange_confe, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+        }else{
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_darkgreen_star, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_darkgreen_ball, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
+            oParticleSystem = new ParticleSystem(this, 80, R.drawable.ic_darkgreen_confe, 10000);
+            arrayParticleSystem.addElement(oParticleSystem);
         }
 
-        if (winner==1) {
+       for(int i = 0; i < arrayParticleSystem.size(); i++){
+           arrayParticleSystem.elementAt(i)
+                   .setSpeedRange(0.2f, 0.5f)
+                   .setRotationSpeed(144)
+                   .oneShot(findViewById(resID1),80);
+       }
 
-            new ParticleSystem(this, 80, R.drawable.ic_confe2, 10000)
-                    .setSpeedRange(0.2f, 0.5f)
-                    .setRotationSpeed(144)
-                    .oneShot(findViewById(resID1), 80);
-
-            new ParticleSystem(this, 80, R.drawable.ic_bola2, 10000)
-                    .setSpeedRange(0.2f, 0.5f)
-                    .setRotationSpeed(144)
-                    .oneShot(findViewById(resID1), 80);
-
-            new ParticleSystem(this, 80, R.drawable.ic_star1, 10000)
-                    .setSpeedRange(0.2f, 0.5f)
-                    .setRotationSpeed(144)
-                    .oneShot(findViewById(resID1), 80);
-        }
         isRoting = true;
-        girarImReloj(0);
+        girarImReloj();
         vibraWinner = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         vibraWinner.vibrate(500);
 
@@ -626,15 +663,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             if (numberSpaces > 0) {
                                 SuperIA oSIA = new SuperIA();
-                                nombreBoton = oSIA.buscarJugada(arrayGame, shiftCounter);
+                                nombreBoton = oSIA.buscarJugada(getArrayGame(), getShiftCounter());
                                 //wait(200);
-                                llenarMatriz(nombreBoton, shiftCounter);
+                                llenarMatriz(nombreBoton, getShiftCounter());
                                 resID1 = getResources().getIdentifier(nombreBoton, "id", getPackageName());
                                 mpClic.start();
                                 validarReglas();
 
-                                botonClic = (ImageButton) findViewById(resID1);
-                                changeIcon(botonClic, shiftCounter);
+                                botonClic = findViewById(resID1);
+                                changeIcon(botonClic, getShiftCounter());
 
                                 checkSpacesGame();
                                 if(numberSpaces == 0 && band != 1){
@@ -642,7 +679,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
 
                                 //Toast.makeText(getApplicationContext(), "Pos a Jugar: " + nombreBoton + "\nContador " + shiftCounter, Toast.LENGTH_SHORT).show();
-                                shiftCounter++;
+                                setShiftCounter(getShiftCounter() + 1);
                                 if (band != 1)
                                     enabledButtonsAviables();
                             }
@@ -660,10 +697,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         numberSpaces = 0;
 
-        for(int i = 0; i < arrayGame.length; i++){
+        for(int i = 0; i < getArrayGame().length; i++){
             if(numberSpaces <= 0){
-                for (int j = 0; j < arrayGame.length; j++) {
-                    if(arrayGame[i][j] != 1 && arrayGame[i][j] != 2){
+                for (int j = 0; j < getArrayGame().length; j++) {
+                    if(getArrayGame()[i][j] != 1 && getArrayGame()[i][j] != 2){
                         numberSpaces++;
                     }
                 }
@@ -688,9 +725,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageButton buttonAux1;
         String buttonId;
 
-        for(int i = 0; i < arrayGame.length; i++){
-            for(int j = 0; j < arrayGame.length; j++){
-                if (0 == arrayGame[i][j]) {
+        for(int i = 0; i < getArrayGame().length; i++){
+            for(int j = 0; j < getArrayGame().length; j++){
+                if (0 == getArrayGame()[i][j]) {
                     buttonId = "button"+i+j;
                     nameButton = getResources().getIdentifier(buttonId, "id", getPackageName());
                     buttonAux1 = findViewById(nameButton);
@@ -700,5 +737,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         }
+    }
+
+    public int[][] getArrayGame() {
+        return arrayGame;
+    }
+
+    public void setArrayGame(int[][] arrayGame) {
+        this.arrayGame = arrayGame;
+    }
+
+    public int getShiftCounter() {
+        return shiftCounter;
+    }
+
+    public void setShiftCounter(int shiftCounter) {
+        this.shiftCounter = shiftCounter;
     }
 }
